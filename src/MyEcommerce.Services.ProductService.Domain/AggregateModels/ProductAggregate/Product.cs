@@ -34,6 +34,10 @@ namespace MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggr
 
         public bool OnReorder { get; protected set; }
 
+        protected Product()
+        {
+        }
+
         public Product(
             ProductType productType,
             ProductBrand productBrand,
@@ -47,6 +51,7 @@ namespace MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggr
             uint maxStockThreshold,
             bool onReorder)
         {
+            Id = new ProductId();
             ProductType = productType;
             ProductBrand = productBrand;
             Name = name;

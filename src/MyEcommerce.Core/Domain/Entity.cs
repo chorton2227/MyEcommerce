@@ -11,7 +11,7 @@ namespace MyEcommerce.Core.Domain
 
         public virtual TId Id { get; protected set; }
 
-        public IReadOnlyCollection<IDomainEvent> DomainEvents => throw new System.NotImplementedException();
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents?.AsReadOnly();
 
         public void AddDomainEvent(IDomainEvent domainEvent)
         {

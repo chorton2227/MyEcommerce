@@ -38,3 +38,14 @@ What are the steps for building a Domain Project?
     * dotnet add package [Package Name]
 * Visual Studio Code
     * code -r .
+
+## TODOS
+
+* Create API for creating and retrieving products
+* Test in postman
+* Create docker image
+* Deploy to k8s
+    * Access via api gateway (ingress-nginx)
+* Create webapp
+    * Pull in products
+    * Basic nav and filters for a catalog

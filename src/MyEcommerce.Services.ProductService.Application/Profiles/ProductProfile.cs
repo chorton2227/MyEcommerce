@@ -1,6 +1,7 @@
 namespace MyEcommerce.Services.ProductService.Application.Profiles
 {
     using AutoMapper;
+    using MyEcommerce.Core.Domain.Common;
     using MyEcommerce.Services.ProductService.Application.Dtos;
     using MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate;
 
@@ -10,7 +11,6 @@ namespace MyEcommerce.Services.ProductService.Application.Profiles
         {
             CreateMap<Product, ProductReadDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value));
-            CreateMap<ProductCreateDto, Product>();
         }
     }
 }

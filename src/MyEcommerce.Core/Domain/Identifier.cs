@@ -9,12 +9,17 @@ namespace MyEcommerce.Core.Domain
 
         protected Identifier()
         {
-            Value = $"${GetType().Name}-${Guid.NewGuid()}";
+            Value = $"{GetType().Name}-{Guid.NewGuid()}";
         }
 
         protected Identifier(Guid value)
         {
-            Value = $"${GetType().Name}-${value.ToString()}";
+            Value = $"{GetType().Name}-{value.ToString()}";
+        }
+
+        protected Identifier(string value)
+        {
+            Value = value;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

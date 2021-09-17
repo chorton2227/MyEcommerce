@@ -14,15 +14,14 @@ namespace MyEcommerce.Core.Application
             _mediator = mediator;
         }
 
-        protected async Task<TResponse> Handle<TResponse>(ICommand<TResponse> command, Guid requestId)
+        protected async Task<TResponse> Handle<TResponse>(ICommand<TResponse> command)
         {
             if (command == null)
             {
                 throw new ArgumentNullException(nameof(command));
             }
-
-            var clientRequestCommand = new ClientRequestCommand<ICommand<TResponse>, TResponse>(command, requestId);
-            return await _mediator.Send(clientRequestCommand).ConfigureAwait(false);
+            
+            return await _mediator.Send(command).ConfigureAwait(false);
         }
     }
 }

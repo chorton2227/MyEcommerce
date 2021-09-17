@@ -2,8 +2,6 @@ namespace MyEcommerce.Services.ProductService.API
 {
     using System;
     using System.Reflection;
-    using Autofac;
-    using Autofac.Extensions.DependencyInjection;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -12,7 +10,10 @@ namespace MyEcommerce.Services.ProductService.API
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
+    using MyEcommerce.Core.Application.CommandHandlers;
+    using MyEcommerce.Core.Application.Commands;
     using MyEcommerce.Services.ProductService.Application;
+    using MyEcommerce.Services.ProductService.Application.CommandHandlers;
     using MyEcommerce.Services.ProductService.Data;
     using MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate;
 
@@ -29,14 +30,14 @@ namespace MyEcommerce.Services.ProductService.API
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             AddAutoMapper(services);
             AddDataLayer(services);
             AddDbContexts(services);
             AddControllers(services);
             AddSwagger(services);
-            return BuildContainer(services);
+            AddMediatR(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +64,7 @@ namespace MyEcommerce.Services.ProductService.API
 
         private void AddAutoMapper(IServiceCollection services)
         {
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.Load("MyEcommerce.Services.ProductService.Application"));
         }
 
         private void AddDataLayer(IServiceCollection services)
@@ -103,22 +104,12 @@ namespace MyEcommerce.Services.ProductService.API
             });
         }
 
-        private AutofacServiceProvider BuildContainer(IServiceCollection services)
+        private void AddMediatR(IServiceCollection services)
         {
-            var container = new ContainerBuilder();
-            container.Populate(services);
-            
-            // Mediator
-            container
-                .RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
-                .AsImplementedInterfaces();
-            container.Register<ServiceFactory>(ctx =>
-            {
-                var c = ctx.Resolve<IComponentContext>();
-                return t => c.Resolve(t);
-            });
-
-            return new AutofacServiceProvider(container.Build());
+            // services.AddMediatR(typeof(MyEcommerce.Core.Application.CommandHandlers.ClientRequestCommandHandler<,>));
+            // services.AddMediatR(typeof(MyEcommerce.Services.ProductService.Application.CommandHandlers.ProductCreateCommandHandler));
+            services.AddMediatR(AppDomain.CurrentDomain.Load("MyEcommerce.Core"));
+            services.AddMediatR(AppDomain.CurrentDomain.Load("MyEcommerce.Services.ProductService.Application"));
         }
     }
 }

@@ -11,5 +11,9 @@ namespace MyEcommerce.Core.Domain.Common
         public ProductId(Guid value) : base(value)
         {
         }
+
+        public ProductId(string value) : base(value)
+        {
+        }
     }
 }

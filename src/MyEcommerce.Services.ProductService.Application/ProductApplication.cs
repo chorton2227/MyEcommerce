@@ -1,6 +1,5 @@
 namespace MyEcommerce.Services.ProductService.Application
 {
-    using System;
     using System.Threading.Tasks;
     using MediatR;
     using MyEcommerce.Core.Application;
@@ -14,9 +13,9 @@ namespace MyEcommerce.Services.ProductService.Application
         {
         }
 
-        public async Task<ProductReadDto> CreateProduct(CreateProductCommand command, Guid requestId)
+        public async Task<ProductReadDto> CreateProduct(ProductCreateCommand command)
         {
-            return await Handle(command, requestId).ConfigureAwait(false);
+            return await Handle(command).ConfigureAwait(false);
         }
     }
 }

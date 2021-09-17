@@ -1,6 +1,5 @@
 namespace MyEcommerce.Services.ProductService.Application
 {
-    using System;
     using System.Threading.Tasks;
     using MyEcommerce.Core.Application;
     using MyEcommerce.Services.ProductService.Application.Commands;
@@ -8,6 +7,6 @@ namespace MyEcommerce.Services.ProductService.Application
 
     public interface IProductApplication : IApplication
     {
-        Task<ProductReadDto> CreateProduct(CreateProductCommand command, Guid requestId);
+        Task<ProductReadDto> CreateProduct(ProductCreateCommand command);
     }
 }
