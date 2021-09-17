@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "6197ea31-3e91-4bfc-861b-4d7c65d87125",
+		"name": "MyEcommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Local ENV",
+			"item": [
+				{
+					"name": "Product Service",
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-requestid",
+										"value": "d1aee302-cbfb-486b-b8f2-ead8b5308723",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Product 1\",\r\n    \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum porta sapien efficitur interdum. Donec risus elit, mattis feugiat ipsum ac, faucibus dictum est. Duis ultricies est felis, a fringilla lectus malesuada nec.\",\r\n    \"price\": 10.10\r\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:5001/api/Products/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"Products",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
