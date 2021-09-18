@@ -42,6 +42,7 @@ What are the steps for building a Domain Project?
 ## TODOS
 
 * Create API for creating and retrieving products
+* Seed product db
 * Test in postman
 * Create docker image
 * Deploy to k8s

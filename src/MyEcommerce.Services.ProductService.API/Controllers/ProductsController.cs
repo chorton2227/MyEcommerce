@@ -1,6 +1,7 @@
 namespace MyEcommerce.Services.ProductService.API.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
     using MediatR;
@@ -27,6 +28,28 @@ namespace MyEcommerce.Services.ProductService.API.Controllers
             _productApplication = productApplication;
         }
 
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public ActionResult<IEnumerable<ProductReadDto>> GetAll()
+        {
+            var products = _productApplication.GetProducts();
+            return Ok(products);
+        }
+
+        [HttpGet("{id}", Name=nameof(GetById))]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public ActionResult<ProductReadDto> GetById(string id)
+        {
+            var product = _productApplication.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
+        }
+
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -34,8 +57,8 @@ namespace MyEcommerce.Services.ProductService.API.Controllers
             [FromBody] ProductCreateDto productCreateDto)
         {
             var command = new ProductCreateCommand(productCreateDto);
-            return await _productApplication.CreateProduct(command);
-            //return CreatedAtRoute(nameof(GetById), new { Id = result.Id }, result);
+            var product = await _productApplication.CreateProduct(command);
+            return CreatedAtRoute(nameof(GetById), new { Id = product.Id }, product);
         }
     }
 }

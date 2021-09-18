@@ -1,7 +1,6 @@
 namespace MyEcommerce.Services.ProductService.Application.Profiles
 {
     using AutoMapper;
-    using MyEcommerce.Core.Domain.Common;
     using MyEcommerce.Services.ProductService.Application.Dtos;
     using MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate;
 

@@ -1,7 +1,10 @@
 namespace MyEcommerce.Services.ProductService.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using MyEcommerce.Core.Domain;
+    using MyEcommerce.Core.Domain.Common;
     using MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate;
 
     public class ProductRepository : IProductRepository
@@ -23,6 +26,16 @@ namespace MyEcommerce.Services.ProductService.Data
         public async Task<bool> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync() >= 0;
+        }
+
+        public IEnumerable<Product> GetAll()
+        {
+            return _context.Products.ToList();
+        }
+
+        public Product GetById(ProductId productId)
+        {
+            return _context.Products.FirstOrDefault(p => p.Id == productId);
         }
     }
 }
