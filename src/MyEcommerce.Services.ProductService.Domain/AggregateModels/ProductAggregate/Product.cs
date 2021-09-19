@@ -34,7 +34,7 @@ namespace MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggr
 
         public bool OnReorder { get; protected set; }
 
-        protected Product()
+        public Product()
         {
         }
 

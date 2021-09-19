@@ -7,7 +7,7 @@ namespace MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggr
     {
         public string Name { get; set; }
 
-        protected ProductBrand()
+        public ProductBrand()
         {
         }
 

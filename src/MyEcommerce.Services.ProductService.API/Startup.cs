@@ -2,6 +2,7 @@ namespace MyEcommerce.Services.ProductService.API
 {
     using System;
     using System.Reflection;
+    using System.Threading.Tasks;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -60,6 +61,8 @@ namespace MyEcommerce.Services.ProductService.API
             {
                 endpoints.MapControllers();
             });
+
+            DataSeeder.Seed(app);
         }
 
         private void AddAutoMapper(IServiceCollection services)
