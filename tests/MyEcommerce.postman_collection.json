@@ -27,7 +27,7 @@
 									"raw": "{\r\n    \"name\": \"Test Product 1\",\r\n    \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum porta sapien efficitur interdum. Donec risus elit, mattis feugiat ipsum ac, faucibus dictum est. Duis ultricies est felis, a fringilla lectus malesuada nec.\",\r\n    \"price\": 10.10\r\n}",
 									"options": {
 										"raw": {
-											"language": "javascript"
+											"language": "json"
 										}
 									}
 								},
@@ -42,6 +42,136 @@
 										"api",
 										"Products",
 										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:5001/api/Products/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"Products",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:5001/api/Products/ProductId-f45c7b7d-e773-47f9-b844-a107eec46869",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"Products",
+										"ProductId-f45c7b7d-e773-47f9-b844-a107eec46869"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "K8S",
+			"item": [
+				{
+					"name": "Product Service",
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-requestid",
+										"value": "d1aee302-cbfb-486b-b8f2-ead8b5308723",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Product 1\",\r\n    \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum porta sapien efficitur interdum. Donec risus elit, mattis feugiat ipsum ac, faucibus dictum est. Duis ultricies est felis, a fringilla lectus malesuada nec.\",\r\n    \"price\": 10.10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://myecommerce.com/api/Products/",
+									"protocol": "http",
+									"host": [
+										"myecommerce",
+										"com"
+									],
+									"path": [
+										"api",
+										"Products",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://myecommerce.com/api/Products/",
+									"protocol": "http",
+									"host": [
+										"myecommerce",
+										"com"
+									],
+									"path": [
+										"api",
+										"Products",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://myecommerce.com/api/Products/ProductId-00729add-5b85-4f1f-8c80-22991f6560ab",
+									"protocol": "http",
+									"host": [
+										"myecommerce",
+										"com"
+									],
+									"path": [
+										"api",
+										"Products",
+										"ProductId-00729add-5b85-4f1f-8c80-22991f6560ab"
 									]
 								}
 							},
