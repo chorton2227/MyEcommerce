@@ -38,6 +38,11 @@ What are the steps for building a Domain Project?
     * dotnet add package [Package Name]
 * Visual Studio Code
     * code -r .
+* Secrets:
+    * kubectl create secret generic mssql --from-literal=SA_PASSWORD="P@ssw0rd" -n myecommerce
+* MSSQL
+    * Create database:
+        * Login: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P [Enter Password]
 
 ## TODOS
 

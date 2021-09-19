@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using MyEcommerce.Data.EntityFrameworkCore;
 using MyEcommerce.Services.ProductService.API;
+using MyEcommerce.Services.ProductService.Data;
 using Serilog;
 using System;
 using System.IO;
@@ -13,6 +15,9 @@ try
 {
     Log.Information("[{AppName}] Building web host...", Program.AppName);
     var host = BuildWebHost(configuration, args);
+
+    Log.Information("[{AppName}] Migrating database...", Program.AppName);
+    host = host.MigrateDbContext<ProductContext>();
 
     Log.Information("[{AppName}] Starting web host...", Program.AppName);
     host.Run();

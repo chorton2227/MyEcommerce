@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservice-deploy
+  namespace: myecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productservice
+  template:
+    metadata:
+      labels:
+        app: productservice
+    spec:
+      containers:
+        - name: productservice
+          image: chorton2227/myecommerce.services.productservice.api:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productservice-clusterip-srv
+  namespace: myecommerce
+spec:
+  type: ClusterIP
+  selector:
+    app: productservice
+  ports:
+  - name: productservice-http-port
+    protocol: TCP
+    port: 80
+    targetPort: 80
