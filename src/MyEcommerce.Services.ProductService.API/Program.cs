@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MyEcommerce.Data.EntityFrameworkCore;
 using MyEcommerce.Services.ProductService.API;
 using MyEcommerce.Services.ProductService.Data;
@@ -16,8 +18,16 @@ try
     Log.Information("[{AppName}] Building web host...", Program.AppName);
     var host = BuildWebHost(configuration, args);
 
-    Log.Information("[{AppName}] Migrating database...", Program.AppName);
-    host = host.MigrateDbContext<ProductContext>();
+    using (var scope = host.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var env = services.GetRequiredService<IWebHostEnvironment>();
+        if (env.IsProduction())
+        {
+            Log.Information("[{AppName}] Migrating database...", Program.AppName);
+            host = host.MigrateDbContext<ProductContext>();
+        }
+    }
 
     Log.Information("[{AppName}] Starting web host...", Program.AppName);
     host.Run();
