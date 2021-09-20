@@ -1,8 +1,6 @@
 namespace MyEcommerce.Services.ProductService.API
 {
     using System;
-    using System.Reflection;
-    using System.Threading.Tasks;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -11,10 +9,7 @@ namespace MyEcommerce.Services.ProductService.API
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
-    using MyEcommerce.Core.Application.CommandHandlers;
-    using MyEcommerce.Core.Application.Commands;
     using MyEcommerce.Services.ProductService.Application;
-    using MyEcommerce.Services.ProductService.Application.CommandHandlers;
     using MyEcommerce.Services.ProductService.Data;
     using MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate;
 
