@@ -28,7 +28,7 @@ namespace MyEcommerce.Services.ProductService.API.Controllers
             _productApplication = productApplication;
         }
 
-        [HttpGet]
+        [HttpGet(Name=nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public ActionResult<IEnumerable<ProductReadDto>> GetAll()
         {
@@ -50,7 +50,7 @@ namespace MyEcommerce.Services.ProductService.API.Controllers
             return Ok(product);
         }
 
-        [HttpPost]
+        [HttpPost(Name=nameof(CreateAsync))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<ProductReadDto>> CreateAsync(
