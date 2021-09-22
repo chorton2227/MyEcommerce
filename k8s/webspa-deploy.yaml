@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webspa-deploy
+  namespace: myecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webspa
+  template:
+    metadata:
+      labels:
+        app: webspa
+    spec:
+      containers:
+        - name: webspa
+          image: chorton2227/myecommerce.webspa:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webspa-clusterip-srv
+  namespace: myecommerce
+spec:
+  type: ClusterIP
+  selector:
+    app: webspa
+  ports:
+  - name: webspa-http-port
+    protocol: TCP
+    port: 80
+    targetPort: 80

@@ -8,6 +8,8 @@ kubectl apply -f ./k8s/myecommerce-namespace.yaml
 kubectl apply -f ./k8s/ingress-srv.yaml
 kubectl apply -f ./k8s/productservice-mssql-deploy.yaml
 kubectl apply -f ./k8s/productservice-deploy.yaml
+kubectl apply -f ./k8s/webspa-deploy.yaml
 
 # Restart deployments
 kubectl rollout restart deployment -n myecommerce productservice-deploy
+kubectl rollout restart deployment -n myecommerce webspa-deploy

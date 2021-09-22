@@ -8,13 +8,23 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: myecommerce.com
-      http:
-        paths:
-          - path: /api/products
-            pathType: Prefix
-            backend:
-              service:
-                name: productservice-clusterip-srv
-                port:
-                  number: 80
+  - host: myecommerce.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: webspa-clusterip-srv
+            port:
+              number: 80
+  - host: api.myecommerce.com
+    http:
+      paths:
+      - path: /api/products
+        pathType: Prefix
+        backend:
+          service:
+            name: productservice-clusterip-srv
+            port:
+              number: 80
