@@ -7,6 +7,10 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
+  tls:
+  - hosts:
+    - myecommerce.com
+    secretName: myecommerce-tls
   rules:
   - host: myecommerce.com
     http:

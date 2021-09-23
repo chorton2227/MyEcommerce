@@ -30,6 +30,13 @@ What are the steps for building a Domain Project?
 * Create new project
     * dotnet new classlib -o MyEcommerce.Core
 
+How do you handle TLS?
+* Generate self-sign cert:
+    * openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj "/CN=${HOST}/O=${HOST}"
+* Store as secret:
+    * kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+* Reference secret in ingress controller
+
 ## CLI
 
 * Dotnet:

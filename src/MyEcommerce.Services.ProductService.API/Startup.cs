@@ -31,7 +31,7 @@ namespace MyEcommerce.Services.ProductService.API
             AddAutoMapper(services);
             AddDataLayer(services);
             AddDbContexts(services);
-            AddControllers(services);
+            AddMvc(services);
             AddSwagger(services);
             AddMediatR(services);
         }
@@ -39,6 +39,8 @@ namespace MyEcommerce.Services.ProductService.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -89,9 +91,22 @@ namespace MyEcommerce.Services.ProductService.API
             }
         }
 
-        private void AddControllers(IServiceCollection services)
+        private void AddMvc(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .WithOrigins(
+                        "https://www.ecommerce.com",
+                        "https://localhost:5001"
+                    )
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
         }
 
         private void AddSwagger(IServiceCollection services)
