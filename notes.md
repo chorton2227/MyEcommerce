@@ -37,6 +37,21 @@ How do you handle TLS?
     * kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
 * Reference secret in ingress controller
 
+Ecommerce site:
+* Hero image
+* Products:
+    * List
+    * Filter
+* Shopping Cart:
+    * Add to cart
+    * List cart
+* Order:
+    * Checkout
+    * Order
+    * Emails
+* Payment:
+    * Approve checkout -> order creation
+
 ## CLI
 
 * Dotnet:
