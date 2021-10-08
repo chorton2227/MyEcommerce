@@ -30,9 +30,9 @@ namespace MyEcommerce.Services.ProductService.API.Controllers
 
         [HttpGet(Name=nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public ActionResult<IEnumerable<ProductReadDto>> GetAll()
+        public ActionResult<PaginatedProductsDto> GetAll(int page, int limit)
         {
-            var products = _productApplication.GetProducts();
+            var products = _productApplication.GetProducts(page, limit);
             return Ok(products);
         }
 

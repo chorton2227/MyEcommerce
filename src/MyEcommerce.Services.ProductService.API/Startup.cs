@@ -101,7 +101,9 @@ namespace MyEcommerce.Services.ProductService.API
                     builder => builder
                     .WithOrigins(
                         "https://www.ecommerce.com",
-                        "https://localhost:5001"
+                        "https://localhost:5001",
+                        "http://localhost:3000",
+                        "https://localhost:3000"
                     )
                     .AllowAnyMethod()
                     .AllowAnyHeader()

@@ -28,9 +28,13 @@ namespace MyEcommerce.Services.ProductService.Data
             return await _context.SaveChangesAsync() >= 0;
         }
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<Product> GetAll(int page, int size)
         {
-            return _context.Products.ToList();
+            return _context
+                .Products
+                .Skip(page * size)
+                .Take(size)
+                .ToList();
         }
 
         public Product GetById(ProductId productId)

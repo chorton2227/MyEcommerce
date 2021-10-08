@@ -8,7 +8,7 @@ namespace MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggr
     {
         void Create(Product product);
 
-        IEnumerable<Product> GetAll();
+        IEnumerable<Product> GetAll(int page, int limit);
 
         Product GetById(ProductId productId);
     }

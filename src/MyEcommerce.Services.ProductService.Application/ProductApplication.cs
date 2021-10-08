@@ -1,7 +1,7 @@
 namespace MyEcommerce.Services.ProductService.Application
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using MediatR;
@@ -13,6 +13,12 @@ namespace MyEcommerce.Services.ProductService.Application
 
     public class ProductApplication : BaseApplication, IProductApplication
     {
+        private const int DEFAULT_PAGE = 0;
+
+        private const int DEFAULT_LIMIT = 12;
+
+        private const int MAX_LIMIT = 50;
+
         private readonly IMapper _mapper;
         
         private readonly IProductRepository _productRepository;
@@ -35,10 +41,26 @@ namespace MyEcommerce.Services.ProductService.Application
             return _mapper.Map<ProductReadDto>(product);
         }
 
-        public IEnumerable<ProductReadDto> GetProducts()
+        public PaginatedProductsDto GetProducts(int page, int limit)
         {
-            var products = _productRepository.GetAll();
-            return _mapper.Map<IEnumerable<ProductReadDto>>(products);
+            if (page < 0) {
+                page = DEFAULT_LIMIT;
+            }
+
+            if (limit < 0 || limit > MAX_LIMIT) {
+                limit = DEFAULT_LIMIT;
+            }
+
+            var realLimit = limit + 1;
+            var products = _productRepository.GetAll(page, realLimit);
+
+            var hasMore = products.Count() == realLimit;
+            var productDtos = _mapper.Map<IEnumerable<ProductReadDto>>(products.Take(limit));
+            return new PaginatedProductsDto
+            {
+                HasMore = hasMore,
+                Products = productDtos
+            };
         }
     }
 }
