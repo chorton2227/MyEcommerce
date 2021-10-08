@@ -1,0 +1,209 @@
+openapi: 3.0.1
+info:
+  title: MyEcommerce.Services.ProductService.API
+  version: v1
+paths:
+  /api/Products:
+    get:
+      tags:
+        - Products
+      operationId: GetAll
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/PaginatedProductsDto"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedProductsDto"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedProductsDto"
+    post:
+      tags:
+        - Products
+      operationId: CreateAsync
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductCreateDto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/ProductCreateDto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/ProductCreateDto"
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProductReadDto"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductReadDto"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProductReadDto"
+        "400":
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  "/api/Products/{id}":
+    get:
+      tags:
+        - Products
+      operationId: GetById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            nullable: true
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProductReadDto"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductReadDto"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProductReadDto"
+        "404":
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+components:
+  schemas:
+    ProductReadDto:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: double
+        imageFileName:
+          type: string
+          nullable: true
+        imageUri:
+          type: string
+          nullable: true
+        availableStock:
+          type: integer
+          format: int32
+        restockTreshold:
+          type: integer
+          format: int32
+        maxStockThreshold:
+          type: integer
+          format: int32
+        onReorder:
+          type: boolean
+      additionalProperties: false
+    PaginatedProductsDto:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductReadDto"
+          nullable: true
+      additionalProperties: false
+    ProductCreateDto:
+      required:
+        - description
+        - name
+        - price
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        imageFileName:
+          type: string
+          nullable: true
+        imageUri:
+          type: string
+          nullable: true
+        availableStock:
+          type: integer
+          format: int32
+        restockTreshold:
+          type: integer
+          format: int32
+        maxStockThreshold:
+          type: integer
+          format: int32
+        onReorder:
+          type: boolean
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
