@@ -11,6 +11,7 @@ namespace MyEcommerce.Services.ProductService.API
     using Microsoft.OpenApi.Models;
     using MyEcommerce.Services.ProductService.Application;
     using MyEcommerce.Services.ProductService.Data;
+    using MyEcommerce.Services.ProductService.Domain.AggregateModels.CatalogAggregate;
     using MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate;
 
     public class Startup
@@ -69,6 +70,7 @@ namespace MyEcommerce.Services.ProductService.API
 
         private void AddDataLayer(IServiceCollection services)
         {
+            services.AddScoped<ICatalogRepository, CatalogRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductApplication, ProductApplication>();
         }

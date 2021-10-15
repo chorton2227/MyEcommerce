@@ -1,5 +1,6 @@
 namespace MyEcommerce.Services.ProductService.Application
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using MyEcommerce.Core.Application;
     using MyEcommerce.Services.ProductService.Application.Commands;
@@ -11,6 +12,8 @@ namespace MyEcommerce.Services.ProductService.Application
 
         ProductReadDto GetProductById(string id);
 
-        PaginatedProductsDto GetProducts(int page, int limit);
+        PaginatedProductsDto GetProducts(ProductOptionsDto optionsDto);
+
+        IEnumerable<CategoryReadDto> GetCategories(string catalogId);
     }
 }

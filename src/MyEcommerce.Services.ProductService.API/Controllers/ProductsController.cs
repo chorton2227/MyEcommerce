@@ -1,7 +1,5 @@
 namespace MyEcommerce.Services.ProductService.API.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Net;
     using System.Threading.Tasks;
     using MediatR;
@@ -30,9 +28,9 @@ namespace MyEcommerce.Services.ProductService.API.Controllers
 
         [HttpGet(Name=nameof(GetAll))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public ActionResult<PaginatedProductsDto> GetAll(int page, int limit)
+        public ActionResult<PaginatedProductsDto> GetAll([FromQuery] ProductOptionsDto optionsDto)
         {
-            var products = _productApplication.GetProducts(page, limit);
+            var products = _productApplication.GetProducts(optionsDto);
             return Ok(products);
         }
 

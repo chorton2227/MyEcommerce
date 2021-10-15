@@ -14,3 +14,57 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* Main */
+
+main {
+  border-top: solid 1px #efefef;
+  border-bottom: solid 1px #efefef;
+  background-color: #fafafa;
+}
+
+/* Footer */
+
+footer {
+  border-top: solid 1px #efefef;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Hero */
+
+.hero {
+  color: #222;
+  background-color: lightblue;
+  border-bottom: solid 1px #efefef;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Product - Generic */
+
+.product-badges .badge {
+  margin-right: 10px;
+}
+
+.product-price {
+  font-weight: bold;
+}
+
+.product-price-old {
+  text-decoration: line-through;
+}
+
+.product-category-selected {
+  text-transform: uppercase;
+}
+
+/* Product List */
+
+.product-list {
+}
+
+/* Product Page */
+
+.product-page {
+}

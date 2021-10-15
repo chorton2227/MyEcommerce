@@ -73,8 +73,11 @@ Ecommerce site:
 
 ## TODOS
 
-- Better product data
-  - Include tags/categories for filtering
 - Sort by?
   - Default
   - Price
+- Return count, page, and size
+- Browse categories
+- Filter tags and price
+- New products
+- On sale products

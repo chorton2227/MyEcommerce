@@ -1,5 +1,6 @@
 namespace MyEcommerce.Services.ProductService.Application
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,25 +10,27 @@ namespace MyEcommerce.Services.ProductService.Application
     using MyEcommerce.Core.Domain.Common;
     using MyEcommerce.Services.ProductService.Application.Commands;
     using MyEcommerce.Services.ProductService.Application.Dtos;
+    using MyEcommerce.Services.ProductService.Domain.AggregateModels.CatalogAggregate;
     using MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate;
 
     public class ProductApplication : BaseApplication, IProductApplication
     {
-        private const int DEFAULT_PAGE = 0;
-
-        private const int DEFAULT_LIMIT = 12;
-
-        private const int MAX_LIMIT = 50;
-
         private readonly IMapper _mapper;
         
         private readonly IProductRepository _productRepository;
+        
+        private readonly ICatalogRepository _catalogRepository;
 
-        public ProductApplication(IMediator mediator, IMapper mapper, IProductRepository productRepository)
-            : base(mediator)
+        public ProductApplication(
+            IMediator mediator,
+            IMapper mapper,
+            IProductRepository productRepository,
+            ICatalogRepository catalogRepository
+        ) : base(mediator)
         {
             _mapper = mapper;
             _productRepository = productRepository;
+            _catalogRepository = catalogRepository;
         }
 
         public async Task<ProductReadDto> CreateProduct(ProductCreateCommand command)
@@ -41,26 +44,32 @@ namespace MyEcommerce.Services.ProductService.Application
             return _mapper.Map<ProductReadDto>(product);
         }
 
-        public PaginatedProductsDto GetProducts(int page, int limit)
+        public PaginatedProductsDto GetProducts(ProductOptionsDto optionsDto)
         {
-            if (page < 0) {
-                page = DEFAULT_LIMIT;
+            var options = _mapper.Map<ProductOptions>(optionsDto);
+
+            // Get 1 more for hasMore
+            options.CheckForMoreRecords = true;
+
+            // Get products, check if hasMore, and remove the extra product
+            var paginatedProducts = _productRepository.GetAll(options);
+            var hasMore = paginatedProducts.Products.Count() > options.PageLimit;
+            if (hasMore) {
+                paginatedProducts.Products = paginatedProducts.Products
+                    .Take(options.PageLimit)
+                    .ToList();
             }
 
-            if (limit < 0 || limit > MAX_LIMIT) {
-                limit = DEFAULT_LIMIT;
-            }
+            // Map and return dto
+            var paginatedProductsDto = _mapper.Map<PaginatedProductsDto>(paginatedProducts);
+            paginatedProductsDto.HasMore = hasMore;
+            return paginatedProductsDto;
+        }
 
-            var realLimit = limit + 1;
-            var products = _productRepository.GetAll(page, realLimit);
-
-            var hasMore = products.Count() == realLimit;
-            var productDtos = _mapper.Map<IEnumerable<ProductReadDto>>(products.Take(limit));
-            return new PaginatedProductsDto
-            {
-                HasMore = hasMore,
-                Products = productDtos
-            };
+        public IEnumerable<CategoryReadDto> GetCategories(string catalogId)
+        {
+            var categories = _catalogRepository.GetCategoriesByCatalogId(new CatalogId(catalogId));
+            return _mapper.Map<IEnumerable<CategoryReadDto>>(categories);
         }
     }
 }

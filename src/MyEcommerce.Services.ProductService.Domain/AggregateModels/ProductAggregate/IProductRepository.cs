@@ -1,6 +1,5 @@
 namespace MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate
 {
-    using System.Collections.Generic;
     using MyEcommerce.Core.Domain;
     using MyEcommerce.Core.Domain.Common;
 
@@ -8,7 +7,7 @@ namespace MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggr
     {
         void Create(Product product);
 
-        IEnumerable<Product> GetAll(int page, int limit);
+        PaginatedProducts GetAll(ProductOptions options);
 
         Product GetById(ProductId productId);
     }

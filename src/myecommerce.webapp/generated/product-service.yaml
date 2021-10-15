@@ -3,22 +3,94 @@ info:
   title: MyEcommerce.Services.ProductService.API
   version: v1
 paths:
+  "/api/Catalogs/{catalogId}/categories":
+    get:
+      tags:
+        - Catalogs
+      operationId: GetCategories
+      parameters:
+        - name: catalogId
+          in: path
+          required: true
+          schema:
+            type: string
+            nullable: true
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryReadDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryReadDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryReadDto"
   /api/Products:
     get:
       tags:
         - Products
       operationId: GetAll
       parameters:
-        - name: page
+        - name: PageIndex
           in: query
           schema:
             type: integer
             format: int32
-        - name: limit
+        - name: PageLimit
           in: query
           schema:
             type: integer
             format: int32
+        - name: PageSort
+          in: query
+          schema:
+            $ref: "#/components/schemas/ProductPageSortDto"
+        - name: FilterIsNew
+          in: query
+          schema:
+            type: boolean
+        - name: FilterOnSale
+          in: query
+          schema:
+            type: boolean
+        - name: FilterMinPrice
+          in: query
+          schema:
+            type: number
+            format: double
+            nullable: true
+        - name: FilterMaxPrice
+          in: query
+          schema:
+            type: number
+            format: double
+            nullable: true
+        - name: FilterCategory.Id
+          in: query
+          schema:
+            type: string
+            nullable: true
+        - name: FilterCategory.Name
+          in: query
+          schema:
+            type: string
+            nullable: true
+        - name: FilterTags
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+            nullable: true
       responses:
         "200":
           description: Success
@@ -111,6 +183,37 @@ paths:
                 $ref: "#/components/schemas/ProblemDetails"
 components:
   schemas:
+    CategoryReadDto:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ProductPageSortDto:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    TagReadDto:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        group:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
     ProductReadDto:
       type: object
       properties:
@@ -126,6 +229,10 @@ components:
         price:
           type: number
           format: double
+        salePrice:
+          type: number
+          format: double
+          nullable: true
         imageFileName:
           type: string
           nullable: true
@@ -143,16 +250,65 @@ components:
           format: int32
         onReorder:
           type: boolean
+        isNew:
+          type: boolean
+        onSale:
+          type: boolean
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryReadDto"
+          nullable: true
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagReadDto"
+          nullable: true
+      additionalProperties: false
+    TagSummaryDto:
+      type: object
+      properties:
+        numProducts:
+          type: integer
+          format: int32
+        tag:
+          $ref: "#/components/schemas/TagReadDto"
+      additionalProperties: false
+    TagGroupSummaryDto:
+      type: object
+      properties:
+        group:
+          type: string
+          nullable: true
+        tagSummaries:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagSummaryDto"
+          nullable: true
       additionalProperties: false
     PaginatedProductsDto:
       type: object
       properties:
         hasMore:
           type: boolean
+        pageIndex:
+          type: integer
+          format: int32
+        pageLimit:
+          type: integer
+          format: int32
+        totalProducts:
+          type: integer
+          format: int32
         products:
           type: array
           items:
             $ref: "#/components/schemas/ProductReadDto"
+          nullable: true
+        tagGroupSummaries:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagGroupSummaryDto"
           nullable: true
       additionalProperties: false
     ProductCreateDto:
@@ -169,6 +325,10 @@ components:
         price:
           type: number
           format: double
+        salePrice:
+          type: number
+          format: double
+          nullable: true
         imageFileName:
           type: string
           nullable: true
@@ -186,6 +346,18 @@ components:
           format: int32
         onReorder:
           type: boolean
+        isNew:
+          type: boolean
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryReadDto"
+          nullable: true
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagReadDto"
+          nullable: true
       additionalProperties: false
     ProblemDetails:
       type: object

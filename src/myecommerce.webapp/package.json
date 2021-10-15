@@ -11,10 +11,13 @@
     "gen:product-service": "rm -rf generated/product-service && openapi-generator-cli generate --input-spec generated/product-service.yaml --generator-name typescript-axios --output generated/product-service/ --config generated/product-service.json && cd generated/product-service/ && npm install && npm run build"
   },
   "dependencies": {
-    "bootstrap": "^5.1.1",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@fontsource/roboto": "^4.5.1",
+    "@mui/icons-material": "^5.0.0-rc.1",
+    "@mui/material": "^5.0.0-rc.1",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-bootstrap": "^2.0.0-rc.0",
     "react-dom": "17.0.2",
     "typescript-axios-product-service": "file:generated/product-service"
   },

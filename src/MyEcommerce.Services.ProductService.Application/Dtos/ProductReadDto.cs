@@ -1,5 +1,7 @@
 namespace MyEcommerce.Services.ProductService.Application.Dtos
 {
+    using System.Collections.Generic;
+    
     public class ProductReadDto
     {
         public string Id { get; set; }
@@ -9,6 +11,8 @@ namespace MyEcommerce.Services.ProductService.Application.Dtos
         public string Description { get; set; }
 
         public decimal Price { get; set; }
+
+        public decimal? SalePrice { get; set; }
 
         public string ImageFileName { get; set; }
 
@@ -21,5 +25,13 @@ namespace MyEcommerce.Services.ProductService.Application.Dtos
         public uint MaxStockThreshold { get; set; }
 
         public bool OnReorder { get; set; }
+
+        public bool IsNew { get; set; }
+
+        public bool OnSale { get; set; }
+
+        public IEnumerable<CategoryReadDto> Categories { get; set; }
+
+        public IEnumerable<TagReadDto> Tags { get; set; }
     }
 }

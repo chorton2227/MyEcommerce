@@ -1,26 +1,28 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
 import NextLink from "next/link";
+import { AppBar, Link, Toolbar, Typography } from "@mui/material";
 
 const Navigation: React.FC<{}> = () => {
   return (
-    <Navbar>
-      <Container>
-        <Navbar.Brand>
+    <AppBar
+      position="static"
+      color="default"
+      elevation={0}
+      sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+    >
+      <Toolbar>
+        <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+          MyEcommerce
+        </Typography>
+        <nav>
           <NextLink href="/">
-            <a>MyEcommerce</a>
+            <Link variant="button" color="text.primary" sx={{ my: 1, mx: 1.5 }}>
+              Home
+            </Link>
           </NextLink>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navigation" />
-        <Navbar.Collapse id="navigation">
-          <Nav>
-            <Nav.Link>Home</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </nav>
+      </Toolbar>
+    </AppBar>
   );
 };
 

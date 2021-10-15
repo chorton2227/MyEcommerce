@@ -1,5 +1,6 @@
+import { Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ProductReadDto,
   ProductsApi,
@@ -43,8 +44,22 @@ const Product = () => {
 
   return (
     <Layout>
-      <h1>{product.name}</h1>
-      <div>{product.description}</div>
+      <Container className="product-page" sx={{ my: 4 }}>
+        <Grid container spacing={4}>
+          <Grid item xs={6}>
+            <img src={product.imageUri!} style={{ width: "100%" }} />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography className="product-title" variant="h4" component="h1">
+              {product.name}
+            </Typography>
+            <Typography className="product-price" variant="h5">
+              ${product.price}
+            </Typography>
+            <Typography variant="body1">{product.description}</Typography>
+          </Grid>
+        </Grid>
+      </Container>
     </Layout>
   );
 };
