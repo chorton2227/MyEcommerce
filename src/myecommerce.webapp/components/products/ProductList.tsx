@@ -7,11 +7,14 @@ import {
   PaginatedProductsDto,
 } from "typescript-axios-product-service";
 import {
+  Box,
   Breadcrumbs,
   Button,
   Container,
   Divider,
+  Drawer,
   Grid,
+  IconButton,
   LinearProgress,
   Link,
   Typography,
@@ -23,6 +26,7 @@ import useCategoryFilter from "./useCategoryFilter";
 import useTagsFilter from "./useTagsFilter";
 import usePriceFilter from "./usePriceFilter";
 import ProductPageResults from "./ProductPageResults";
+import { FilterList, NavigateNext } from "@mui/icons-material";
 
 interface State {
   isLoading: boolean;
@@ -34,6 +38,7 @@ interface State {
   totalProducts: number;
   tagGroupSummaries: TagGroupSummaryDto[];
   products: ProductReadDto[];
+  isMobileSidebarDrawerOpen: boolean;
 }
 
 type Action =
@@ -49,26 +54,29 @@ type Action =
   | {
       type: "complete";
       paginatedProducts: PaginatedProductsDto;
+    }
+  | {
+      type: "openMobileSidebarDrawer";
+    }
+  | {
+      type: "closeMobileSidebarDrawer";
     };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "loadMore":
-      console.log("reducer.loadMore", state);
       return {
         ...state,
         isLoadingMore: true,
         pageIndex: state.pageIndex + 1,
       };
     case "reset":
-      console.log("reducer.reset", state);
       return {
         ...state,
         resetProducts: true,
         pageIndex: 0,
       };
     case "complete":
-      console.log("reducer.complete", state);
       return {
         ...state,
         isLoading: false,
@@ -80,6 +88,16 @@ const reducer = (state: State, action: Action): State => {
         products: state.resetProducts
           ? [...(action.paginatedProducts.products ?? [])]
           : [...state.products, ...(action.paginatedProducts.products ?? [])],
+      };
+    case "openMobileSidebarDrawer":
+      return {
+        ...state,
+        isMobileSidebarDrawerOpen: true,
+      };
+    case "closeMobileSidebarDrawer":
+      return {
+        ...state,
+        isMobileSidebarDrawerOpen: false,
       };
     default:
       return { ...state };
@@ -96,6 +114,7 @@ const initialState: State = {
   totalProducts: 0,
   tagGroupSummaries: [],
   products: [],
+  isMobileSidebarDrawerOpen: false,
 };
 
 const productsApiService = new ProductsApi(
@@ -168,6 +187,18 @@ const ProductList: React.FC<{}> = () => {
     selectedCategoryName,
   ]);
 
+  const sidebarDrawer = (
+    <React.Fragment>
+      {categoryFilterComponent}
+      <Typography variant="h5" mt={4} mb={2}>
+        Filter by
+      </Typography>
+      {priceFilterComponent}
+      {promotionsFilterComponent}
+      {tagsFilterComponent}
+    </React.Fragment>
+  );
+
   return (
     <section className="product-list">
       <Container sx={{ py: 4 }}>
@@ -182,28 +213,68 @@ const ProductList: React.FC<{}> = () => {
               direction="row"
               alignItems="center"
               justifyContent="center"
+              sx={{
+                textAlign: { xs: "center", md: "unset" },
+              }}
             >
-              <Grid item xs={12} md={6}>
-                <Breadcrumbs>
-                  <Link
-                    href="/"
-                    underline="none"
-                    color="inherit"
-                    sx={{ ":hover": { color: "initial" } }}
-                  >
-                    Home
-                  </Link>
-                  <Link underline="none" color="inherit">
-                    Shop
-                  </Link>
-                  {!selectedCategoryName ? null : (
-                    <Typography color="text.primary">
-                      {selectedCategoryName}
-                    </Typography>
-                  )}
-                </Breadcrumbs>
+              <Grid item xs={12} md={5}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: { xs: "center", md: "unset" },
+                  }}
+                >
+                  <Breadcrumbs separator={<NavigateNext />}>
+                    <Link
+                      href="/"
+                      underline="none"
+                      color="inherit"
+                      sx={{ ":hover": { color: "initial" } }}
+                    >
+                      <Typography variant="h5">Home</Typography>
+                    </Link>
+                    <Link underline="none" color="inherit">
+                      <Typography variant="h5">Shop</Typography>
+                    </Link>
+                    {!selectedCategoryName ? null : (
+                      <Typography variant="h5" color="text.primary">
+                        {selectedCategoryName}
+                      </Typography>
+                    )}
+                  </Breadcrumbs>
+                </Box>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} sx={{ display: { xs: "block", md: "none" } }}>
+                <Button
+                  variant="outlined"
+                  aria-label="Open mobile sidebar drawer"
+                  onClick={() => {
+                    dispatch({ type: "openMobileSidebarDrawer" });
+                  }}
+                  sx={{ display: { md: "none" } }}
+                  startIcon={<FilterList />}
+                >
+                  Filter
+                </Button>
+                <Drawer
+                  container={
+                    window !== undefined
+                      ? () => window.document.body
+                      : undefined
+                  }
+                  variant="temporary"
+                  open={state.isMobileSidebarDrawerOpen}
+                  onClose={() => {
+                    dispatch({ type: "closeMobileSidebarDrawer" });
+                  }}
+                  sx={{ display: { md: "none" } }}
+                >
+                  <Box px={2} py={4} minWidth={250}>
+                    {sidebarDrawer}
+                  </Box>
+                </Drawer>
+              </Grid>
+              <Grid item xs={12} md={7}>
                 <Grid
                   container
                   spacing={2}
@@ -230,16 +301,10 @@ const ProductList: React.FC<{}> = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <Grid item xs={3}>
-                {categoryFilterComponent}
-                <Typography variant="h5" mt={4} mb={2}>
-                  Filter by
-                </Typography>
-                {priceFilterComponent}
-                {promotionsFilterComponent}
-                {tagsFilterComponent}
+              <Grid item md={3} sx={{ display: { xs: "none", md: "block" } }}>
+                {sidebarDrawer}
               </Grid>
-              <Grid container item xs={9} spacing={2}>
+              <Grid container item xs={12} md={9} spacing={2}>
                 {!state.products || state.products.length === 0 ? (
                   <Grid item xs={12}>
                     <Typography variant="h6" sx={{ mb: 1 }}>
