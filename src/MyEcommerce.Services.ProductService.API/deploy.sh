@@ -4,7 +4,7 @@ echo Enter image version:
 read VERSION
 
 # Build and push images
-docker build -t chorton2227/myecommerce.services.productservice.api:$VERSION -f src/MyEcommerce.Services.ProductService.API/Dockerfile .
+docker build -t chorton2227/myecommerce.services.productservice.api:$VERSION -f Dockerfile .
 docker push chorton2227/myecommerce.services.productservice.api:$VERSION
 
 # Deploy images to production
