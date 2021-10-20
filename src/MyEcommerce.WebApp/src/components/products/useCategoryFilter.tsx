@@ -11,7 +11,7 @@ import {
   CatalogsApi,
   CategoryReadDto,
   Configuration,
-} from "typescript-axios-product-service";
+} from "../../generated/product-service/dist/index";
 
 const useCategoryFilter = (): [string | undefined, ReactElement] => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +22,7 @@ const useCategoryFilter = (): [string | undefined, ReactElement] => {
 
   const catalogsApiService = new CatalogsApi(
     new Configuration({
-      basePath: "https://localhost:6001",
+      basePath: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL,
     })
   );
 
@@ -39,7 +39,7 @@ const useCategoryFilter = (): [string | undefined, ReactElement] => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const categoryFilterComponent = (
     <React.Fragment>
@@ -56,7 +56,7 @@ const useCategoryFilter = (): [string | undefined, ReactElement] => {
         </React.Fragment>
       ) : (
         categories.map((category: CategoryReadDto) => (
-          <List sx={{ p: 0 }}>
+          <List key={category.id} sx={{ p: 0 }}>
             <ListItem disablePadding>
               <ListItemText
                 sx={{

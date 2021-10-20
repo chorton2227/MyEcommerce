@@ -12,7 +12,7 @@ import {
   TagReadDto,
   TagGroupSummaryDto,
   TagSummaryDto,
-} from "typescript-axios-product-service";
+} from "../../generated/product-service/dist/index";
 
 interface TagsFilterProps {
   tagGroupSummaries: TagGroupSummaryDto[];
@@ -25,7 +25,7 @@ const useTagsFilter = ({
   const tagsFilterComponent = (
     <React.Fragment>
       {tagGroupSummaries.map((tagGroupSummary) => (
-        <React.Fragment>
+        <React.Fragment key={tagGroupSummary.group}>
           <Typography variant="h6" mt={2} mb={1}>
             {tagGroupSummary.group}
           </Typography>
@@ -34,6 +34,7 @@ const useTagsFilter = ({
             <Box>
               {selectedTags.map((tag) => (
                 <Chip
+                  key={tag.id}
                   sx={{ mr: 1, mb: 1 }}
                   label={`${tag.name}`}
                   onDelete={() => {
@@ -63,7 +64,7 @@ const useTagsFilter = ({
                   });
                 })
                 .map((tagSummary: TagSummaryDto) => (
-                  <ListItem disablePadding>
+                  <ListItem key={tagSummary.tag!.id} disablePadding>
                     <ListItemText
                       sx={{
                         m: 0,

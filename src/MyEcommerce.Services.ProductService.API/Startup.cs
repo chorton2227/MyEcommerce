@@ -102,8 +102,7 @@ namespace MyEcommerce.Services.ProductService.API
                 options.AddPolicy("CorsPolicy",
                     builder => builder
                     .WithOrigins(
-                        "https://product-service.ecommerce.chorton.dev",
-                        "https://ecommerce.chorton.dev",
+                        "https://myecommerce.chorton.dev",
                         "https://www.ecommerce.com",
                         "https://localhost:5001",
                         "http://localhost:3000",

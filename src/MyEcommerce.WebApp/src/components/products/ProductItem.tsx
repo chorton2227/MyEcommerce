@@ -8,7 +8,7 @@ import {
   Skeleton,
 } from "@mui/material";
 import React, { ReactElement } from "react";
-import { ProductReadDto } from "typescript-axios-product-service";
+import { ProductReadDto } from "../../generated/product-service/dist/index";
 import NextLink from "next/link";
 
 interface ProductItemProps {

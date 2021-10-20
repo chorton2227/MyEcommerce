@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import React, { ReactElement, useState } from "react";
-import { ProductPageSortDto } from "typescript-axios-product-service";
+import { ProductPageSortDto } from "../../generated/product-service/dist/index";
 
 const usePageSort = (): [ProductPageSortDto, ReactElement] => {
   const [pageSort, setPageSort] = useState(ProductPageSortDto.NUMBER_0);

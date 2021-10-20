@@ -39,7 +39,7 @@ namespace MyEcommerce.Services.ProductService.API
             context.Catalogs.Add(catalog);
             context.SaveChanges();
 
-            var categoryNames = new[] { "Test 1", "Test 2", "Test 3", "Test 4", "Test 5" };
+            var categoryNames = new[] { "Men", "Women", "Boys", "Girls", "Unisex" };
             foreach (var categoryName in categoryNames)
             {
                 var category = new Category(catalog, categoryName);

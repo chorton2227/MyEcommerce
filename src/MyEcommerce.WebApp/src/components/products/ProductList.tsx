@@ -5,7 +5,7 @@ import {
   ProductReadDto,
   TagGroupSummaryDto,
   PaginatedProductsDto,
-} from "typescript-axios-product-service";
+} from "../../generated/product-service/dist/index";
 import {
   Box,
   Breadcrumbs,
@@ -14,7 +14,6 @@ import {
   Divider,
   Drawer,
   Grid,
-  IconButton,
   LinearProgress,
   Link,
   Typography,
@@ -119,7 +118,7 @@ const initialState: State = {
 
 const productsApiService = new ProductsApi(
   new Configuration({
-    basePath: "https://product-service.myecommerce.chorton.dev",
+    basePath: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL,
   })
 );
 
@@ -167,7 +166,7 @@ const ProductList: React.FC<{}> = () => {
     (async () => {
       await getProducts();
     })();
-  }, [state.isLoadingMore, state.resetProducts]);
+  }, [state.isLoadingMore, state.resetProducts]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Reset after view changes
   useEffect(() => {
@@ -316,6 +315,7 @@ const ProductList: React.FC<{}> = () => {
                   <React.Fragment>
                     {state.products.map((product: ProductReadDto) => (
                       <ProductItem
+                        key={product.id}
                         isLoading={state.isLoading || state.resetProducts}
                         product={product}
                       />

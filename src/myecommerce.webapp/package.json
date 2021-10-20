@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "gen:services": "npm run gen:product-service",
-    "gen:product-service": "rm -rf generated/product-service && openapi-generator-cli generate --input-spec generated/product-service.yaml --generator-name typescript-axios --output generated/product-service/ --config generated/product-service.json && cd generated/product-service/ && npm install && npm run build"
+    "gen:product-service": "rm -rf src/generated/product-service && openapi-generator-cli generate --input-spec src/generated/product-service.yaml --generator-name typescript-axios --output src/generated/product-service/ --config src/generated/product-service.json && cd src/generated/product-service/ && npm install && npm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -19,7 +19,7 @@
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "typescript-axios-product-service": "file:generated/product-service"
+    "typescript-axios-product-service": "file:src/generated/product-service/dist/index"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.4.12",

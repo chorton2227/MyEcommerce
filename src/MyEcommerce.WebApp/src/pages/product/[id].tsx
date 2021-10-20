@@ -5,8 +5,9 @@ import {
   ProductReadDto,
   ProductsApi,
   Configuration,
-} from "typescript-axios-product-service";
+} from "../../generated/product-service/dist/index";
 import Layout from "../../components/Layout";
+import Image from "next/image";
 
 const Product = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const Product = () => {
 
   useEffect(() => {
     getProduct();
-  }, [productId]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getProduct = async () => {
     if (!productId) {
@@ -26,7 +27,7 @@ const Product = () => {
     setIsLoading(true);
     const productsApiService = new ProductsApi(
       new Configuration({
-        basePath: "https://localhost:6001",
+        basePath: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL,
       })
     );
     const response = await productsApiService.getById(productId);
@@ -47,7 +48,12 @@ const Product = () => {
       <Container className="product-page" sx={{ my: 4 }}>
         <Grid container spacing={4}>
           <Grid item xs={6}>
-            <img src={product.imageUri!} style={{ width: "100%" }} />
+            <Image
+              src={product.imageUri!}
+              alt="Product image"
+              width={640}
+              height={480}
+            />
           </Grid>
           <Grid item xs={6}>
             <Typography className="product-title" variant="h4" component="h1">
