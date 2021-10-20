@@ -73,11 +73,14 @@ Ecommerce site:
 
 ## TODOS
 
-- Sort by?
-  - Default
-  - Price
-- Return count, page, and size
-- Browse categories
-- Filter tags and price
-- New products
-- On sale products
+- Cart
+  - Backend
+    - Add to cart
+    - Remove from cart
+    - Update quantity
+  - Fontend
+    - Navbar cart
+    - Add to cart
+      - Product list
+      - Product page
+      - Quickview?
