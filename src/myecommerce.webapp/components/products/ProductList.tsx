@@ -119,7 +119,7 @@ const initialState: State = {
 
 const productsApiService = new ProductsApi(
   new Configuration({
-    basePath: "https://localhost:6001",
+    basePath: "https://product-service.myecommerce.chorton.dev",
   })
 );
 

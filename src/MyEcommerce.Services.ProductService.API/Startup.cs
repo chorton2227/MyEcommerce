@@ -49,7 +49,7 @@ namespace MyEcommerce.Services.ProductService.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEcommerce.Services.ProductService.API v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -81,7 +81,7 @@ namespace MyEcommerce.Services.ProductService.API
             {
                 services.AddDbContext<ProductContext>(opts =>
                 {
-                    opts.UseSqlServer(Configuration.GetConnectionString("Default"));
+                    opts.UseNpgsql("***REMOVED***");
                 });
             }
             else
@@ -102,6 +102,8 @@ namespace MyEcommerce.Services.ProductService.API
                 options.AddPolicy("CorsPolicy",
                     builder => builder
                     .WithOrigins(
+                        "https://product-service.ecommerce.chorton.dev",
+                        "https://ecommerce.chorton.dev",
                         "https://www.ecommerce.com",
                         "https://localhost:5001",
                         "http://localhost:3000",

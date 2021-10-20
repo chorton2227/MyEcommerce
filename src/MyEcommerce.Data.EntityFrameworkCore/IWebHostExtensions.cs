@@ -2,10 +2,10 @@ namespace MyEcommerce.Data.EntityFrameworkCore
 {
     using System;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Data.SqlClient;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Npgsql; 
     using Polly;
 
     public static class IWebHostExtensions
@@ -24,7 +24,7 @@ namespace MyEcommerce.Data.EntityFrameworkCore
                 try
                 {
                     var retryPolicy = Policy
-                        .Handle<SqlException>()
+                        .Handle<NpgsqlException>()
                         .WaitAndRetry(
                             retryCount: RetryCount,
                             sleepDurationProvider: attempt => TimeSpan.FromSeconds(attempt),

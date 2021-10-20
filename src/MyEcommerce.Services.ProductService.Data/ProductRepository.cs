@@ -43,7 +43,7 @@ namespace MyEcommerce.Services.ProductService.Data
                 .ThenInclude(pc => pc.Category)
                 .Include(p => p.ProductTags)
                 .ThenInclude(pt => pt.Tag)
-                //.ThenInclude(t => t.Id)
+                .ToList()
                 .AsQueryable();
 
             /* Filter query */

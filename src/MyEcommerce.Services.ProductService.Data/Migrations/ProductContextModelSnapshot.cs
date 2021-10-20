@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyEcommerce.Services.ProductService.Data;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MyEcommerce.Services.ProductService.Data.Migrations
 {
@@ -15,14 +15,14 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.10")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("MyEcommerce.Core.Domain.Common.ProductId", b =>
                 {
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Value");
 
@@ -32,11 +32,11 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.CatalogAggregate.Catalog", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -46,15 +46,15 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.CatalogAggregate.Category", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CatalogId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -66,7 +66,7 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.CatalogAggregate.CategoryId", b =>
                 {
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Value");
 
@@ -76,42 +76,42 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate.Product", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<long>("AvailableStock")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ImageFileName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ImageUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<long>("MaxStockThreshold")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("OnReorder")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<long>("RestockTreshold")
                         .HasColumnType("bigint");
 
                     b.Property<decimal?>("SalePrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -121,10 +121,10 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate.ProductCategory", b =>
                 {
                     b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("ProductId", "CategoryId");
 
@@ -136,10 +136,10 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate.ProductTag", b =>
                 {
                     b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("TagId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("ProductId", "TagId");
 
@@ -151,15 +151,15 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate.Tag", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Group")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -169,7 +169,7 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
             modelBuilder.Entity("MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate.TagId", b =>
                 {
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Value");
 
@@ -192,11 +192,11 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
                     b.OwnsOne("MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate.ProductBrand", "ProductBrand", b1 =>
                         {
                             b1.Property<string>("ProductId")
-                                .HasColumnType("nvarchar(450)");
+                                .HasColumnType("text");
 
                             b1.Property<string>("Name")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("text");
 
                             b1.HasKey("ProductId");
 
@@ -209,11 +209,11 @@ namespace MyEcommerce.Services.ProductService.Data.Migrations
                     b.OwnsOne("MyEcommerce.Services.ProductService.Domain.AggregateModels.ProductAggregate.ProductType", "ProductType", b1 =>
                         {
                             b1.Property<string>("ProductId")
-                                .HasColumnType("nvarchar(450)");
+                                .HasColumnType("text");
 
                             b1.Property<string>("Name")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("text");
 
                             b1.HasKey("ProductId");
 

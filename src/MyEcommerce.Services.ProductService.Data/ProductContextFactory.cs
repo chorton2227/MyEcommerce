@@ -12,7 +12,7 @@ namespace MyEcommerce.Services.ProductService.Data
         {
             return new ProductContext(
                 new DbContextOptionsBuilder<ProductContext>()
-                    .UseSqlServer(CONNECTION_STRING)
+                    .UseNpgsql(CONNECTION_STRING)
                     .Options,
                 new NoMediator()
             );
