@@ -80,6 +80,11 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
                 };
             }
 
+            // Login user
+            var authProps = GetAuthProps();
+            await _signInManager.SignInAsync(user, authProps);
+
+            // User logged in
             return new ResetPasswordResponseDto {
                 User = new UserReadDto {
                     Id = user.Id,
@@ -167,10 +172,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
             }
 
             // Login user
-            var authProps = new AuthenticationProperties {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7),
-                AllowRefresh = true,
-            };
+            var authProps = GetAuthProps();
             await _signInManager.SignInAsync(user, authProps);
 
             // User logged in
@@ -233,6 +235,14 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
                     Id = user.Id,
                     Username = user.UserName
                 }
+            };
+        }
+
+        private AuthenticationProperties GetAuthProps()
+        {
+            return new AuthenticationProperties {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7),
+                AllowRefresh = true,
             };
         }
     }
