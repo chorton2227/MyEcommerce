@@ -13,7 +13,7 @@ namespace MyEcommerce.Data.EntityFrameworkCore
         private static readonly int RetryCount = 5;
         
         public static IWebHost MigrateDbContext<TDbContext>(this IWebHost host, Action<TDbContext, IServiceProvider> seeder = null)
-            where TDbContext : BaseDbContext
+            where TDbContext : DbContext
         {
             using (var scope = host.Services.CreateScope())
             {
