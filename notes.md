@@ -73,6 +73,13 @@ Ecommerce site:
 
 ## TODOS
 
+- Identity
+  - Register
+  - Login
+  - Logout
+  - Reset Password
+  - Change Password
+  - Guest Login?
 - Cart
   - Backend
     - Add to cart
