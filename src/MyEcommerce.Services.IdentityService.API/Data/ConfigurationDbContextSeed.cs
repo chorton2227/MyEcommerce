@@ -13,9 +13,9 @@ namespace MyEcommerce.Services.IdentityService.API.Data
     {
         public async Task SeedAsync(ConfigurationDbContext context, IConfiguration configuration)
         {
-            await SeedClientsAsync(context, Config.GetClients(configuration));
-            await SeedIdentityResources(context, Config.GetIdentityResources());
-            await SeedApiResources(context, Config.GetApiResources());
+            // await SeedClientsAsync(context, Config.GetClients(configuration));
+            // await SeedIdentityResources(context, Config.GetIdentityResources());
+            // await SeedApiResources(context, Config.GetApiResources());
         }
 
         public static async Task SeedClientsAsync(
