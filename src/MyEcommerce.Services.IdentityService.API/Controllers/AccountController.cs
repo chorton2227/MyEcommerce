@@ -229,6 +229,10 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
                 };
             }
 
+            // Login user after registering
+            var authProps = GetAuthProps();
+            await _signInManager.SignInAsync(user, authProps);
+
             // Registered user
             return new RegisterResponseDto {
                 User = new UserReadDto {
