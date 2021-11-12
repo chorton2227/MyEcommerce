@@ -1,13 +1,10 @@
 import { Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
 import React, { useState, useEffect } from "react";
-import {
-  ProductReadDto,
-  ProductsApi,
-  Configuration,
-} from "../../generated/product-service/dist/index";
+import { ProductReadDto } from "../../generated/product-service/dist/index";
 import Layout from "../../components/Layout";
 import Image from "next/image";
+import { getProductById } from "../../apis/productsApi";
 
 const Product = () => {
   const router = useRouter();
@@ -25,13 +22,8 @@ const Product = () => {
     }
 
     setIsLoading(true);
-    const productsApiService = new ProductsApi(
-      new Configuration({
-        basePath: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL,
-      })
-    );
-    const response = await productsApiService.getById(productId);
-    setProduct(response.data);
+    const response = await getProductById(productId);
+    setProduct(response);
     setIsLoading(false);
   };
 

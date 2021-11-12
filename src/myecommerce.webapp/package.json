@@ -7,18 +7,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen:services": "npm run gen:product-service",
-    "gen:product-service": "rm -rf src/generated/product-service && openapi-generator-cli generate --input-spec src/generated/product-service.yaml --generator-name typescript-axios --output src/generated/product-service/ --config src/generated/product-service.json && cd src/generated/product-service/ && npm install && npm run build"
+    "gen:services": "npm run gen:product-service && npm run gen:identity-service",
+    "gen:product-service": "rm -rf src/generated/product-service && openapi-generator-cli generate --input-spec src/generated/product-service.yaml --generator-name typescript-axios --output src/generated/product-service/ --config src/generated/product-service.json && cd src/generated/product-service/ && npm install && npm run build",
+    "gen:identity-service": "rm -rf src/generated/identity-service && openapi-generator-cli generate --input-spec src/generated/identity-service.yaml --generator-name typescript-axios --output src/generated/identity-service/ --config src/generated/identity-service.json && cd src/generated/identity-service/ && npm install && npm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.5.1",
     "@mui/icons-material": "^5.0.0-rc.1",
+    "@mui/lab": "^5.0.0-alpha.54",
     "@mui/material": "^5.0.0-rc.1",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-query": "^3.32.1",
+    "typescript-axios-identity-service": "file:src/generated/identity-service/dist/index",
     "typescript-axios-product-service": "file:src/generated/product-service/dist/index"
   },
   "devDependencies": {

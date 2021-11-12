@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { ReactElement, useEffect, useState } from "react";
+import { getAllCategories } from "../../apis/catalogsApi";
 import {
   CatalogsApi,
   CategoryReadDto,
@@ -20,20 +21,14 @@ const useCategoryFilter = (): [string | undefined, ReactElement] => {
     CategoryReadDto | undefined
   >();
 
-  const catalogsApiService = new CatalogsApi(
-    new Configuration({
-      basePath: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL,
-    })
-  );
-
   const getCategories = async () => {
     setIsLoading(true);
 
-    const response = await catalogsApiService.getCategories(
+    const response = await getAllCategories(
       "CatalogId-3bfc1e05-6ce6-42ca-90f6-71556e1f1c7e"
     );
 
-    setCategories(response.data);
+    setCategories(response);
     setIsLoading(false);
   };
 

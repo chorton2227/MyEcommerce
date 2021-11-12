@@ -15,18 +15,9 @@ a {
   box-sizing: border-box;
 }
 
-/* Main */
-
-main {
-  border-top: solid 1px #efefef;
-  border-bottom: solid 1px #efefef;
-  background-color: #fafafa;
-}
-
 /* Footer */
 
 footer {
-  border-top: solid 1px #efefef;
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -62,6 +53,9 @@ footer {
 /* Product List */
 
 .product-list {
+  border-top: solid 1px #efefef;
+  border-bottom: solid 1px #efefef;
+  background-color: #fafafa;
 }
 
 /* Product Page */

@@ -1,7 +1,5 @@
 import React, { useEffect, useReducer, useRef } from "react";
 import {
-  Configuration,
-  ProductsApi,
   ProductReadDto,
   TagGroupSummaryDto,
   PaginatedProductsDto,
@@ -26,6 +24,7 @@ import useTagsFilter from "./useTagsFilter";
 import usePriceFilter from "./usePriceFilter";
 import ProductPageResults from "./ProductPageResults";
 import { FilterList, NavigateNext } from "@mui/icons-material";
+import { getAllProducts } from "../../apis/productsApi";
 
 interface State {
   isLoading: boolean;
@@ -116,12 +115,6 @@ const initialState: State = {
   isMobileSidebarDrawerOpen: false,
 };
 
-const productsApiService = new ProductsApi(
-  new Configuration({
-    basePath: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL,
-  })
-);
-
 const ProductList: React.FC<{}> = () => {
   const didMountReset = useRef(false);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -135,7 +128,7 @@ const ProductList: React.FC<{}> = () => {
 
   const getProducts = async () => {
     const pageIndex = state.resetProducts ? 0 : state.pageIndex;
-    const response = await productsApiService.getAll(
+    const response = await getAllProducts(
       pageIndex,
       state.pageLimit,
       pageSort,
@@ -152,7 +145,7 @@ const ProductList: React.FC<{}> = () => {
 
     dispatch({
       type: "complete",
-      paginatedProducts: response.data,
+      paginatedProducts: response,
     });
   };
 

@@ -20,7 +20,7 @@ namespace MyEcommerce.Services.IdentityService.API.Services
         public async Task<bool> SendForgotPasswordAsync(User user, string token)
         {
             var clientUrl = _configuration["WebApp:ClientUrl"];
-            var resetPasswordUrl = $"{clientUrl}/resetpassword?token={token}";
+            var resetPasswordUrl = $"{clientUrl}/account/reset-password?token={token}";
 
             var msg = new SendGridMessage
             {
