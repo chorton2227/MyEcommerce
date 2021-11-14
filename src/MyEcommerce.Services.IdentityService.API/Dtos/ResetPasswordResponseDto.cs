@@ -4,8 +4,10 @@ namespace MyEcommerce.Services.IdentityService.API.Dtos
 
     public record ResetPasswordResponseDto
     {
-        public IEnumerable<FieldErrorDto> FieldErrors { get; init; }
+        public bool Success { get; set; }
 
-        public UserReadDto User { get; init; }
+        public string Jwt { get; set; }
+
+        public IEnumerable<FieldErrorDto> FieldErrors { get; init; }
     }
 }

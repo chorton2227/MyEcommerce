@@ -10,6 +10,7 @@ namespace MyEcommerce.Services.IdentityService.API
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
+    using MyEcommerce.Services.IdentityService.API.Configurations;
     using MyEcommerce.Services.IdentityService.API.Data;
     using MyEcommerce.Services.IdentityService.API.Models;
     using MyEcommerce.Services.IdentityService.API.Services;
@@ -76,6 +77,8 @@ namespace MyEcommerce.Services.IdentityService.API
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<MyIdentityDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
 
             services.AddAuthentication();
             

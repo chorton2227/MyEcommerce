@@ -17,7 +17,7 @@ Log.Logger = CreateSerilogLogger(configuration);
 
 try
 {
-    Log.Information("[{AppName}] Building web host...", Program.AppName);
+    Log.Information("[{AppName}] Building web host...", MyEcommerce.Services.IdentityService.API.Program.AppName);
     var host = BuildWebHost(configuration, args);
 
     using (var scope = host.Services.CreateScope())
@@ -26,25 +26,21 @@ try
         var env = services.GetRequiredService<IWebHostEnvironment>();
         if (env.IsProduction())
         {
-            Log.Information("[{AppName}] Migrating database...", Program.AppName);
+            Log.Information("[{AppName}] Migrating database...", MyEcommerce.Services.IdentityService.API.Program.AppName);
             host.MigrateDbContext<PersistedGrantDbContext>()
                 .MigrateDbContext<MyIdentityDbContext>()
-                .MigrateDbContext<ConfigurationDbContext>((context, services) => {
-                    new ConfigurationDbContextSeed()
-                        .SeedAsync(context, configuration)
-                        .Wait();
-                });
+                .MigrateDbContext<ConfigurationDbContext>();
         }
     }
 
-    Log.Information("[{AppName}] Starting web host...", Program.AppName);
+    Log.Information("[{AppName}] Starting web host...", MyEcommerce.Services.IdentityService.API.Program.AppName);
     host.Run();
 
     return 0;
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "[{AppName}] Unexpected exception ({ExceptionMessage}).", Program.AppName, ex.Message);
+    Log.Fatal(ex, "[{AppName}] Unexpected exception ({ExceptionMessage}).", MyEcommerce.Services.IdentityService.API.Program.AppName, ex.Message);
     return 1;
 }
 finally

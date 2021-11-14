@@ -3,10 +3,10 @@ import {
   ForgotPasswordRequestDto,
   LoginRequestDto,
   LoginResponseDto,
+  MeResponseDto,
   RegisterRequestDto,
   RegisterResponseDto,
   ResetPasswordRequestDto,
-  UserReadDto,
 } from "../generated/identity-service/dist";
 
 const accountApi = new AccountApi(
@@ -33,7 +33,7 @@ export const logout = (): Promise<void> =>
     .logout({ withCredentials: true })
     .then((response) => response.data);
 
-export const me = (): Promise<UserReadDto> =>
+export const me = (): Promise<MeResponseDto> =>
   accountApi.me({ withCredentials: true }).then((response) => response.data);
 
 export const register = (

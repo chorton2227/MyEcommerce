@@ -1,19 +1,20 @@
 import React from "react";
 import NextLink from "next/link";
 import { AppBar, Link, Toolbar, Typography } from "@mui/material";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { logout, me } from "../apis/accountApi";
 
 const Navigation: React.FC<{}> = () => {
-  const { data: user } = useQuery(["account", "me"], () => me());
-  console.log("user", user);
-
+  const { data: meResponse } = useQuery(["account", "me"], () => me());
   const queryClient = useQueryClient();
   const { mutate: logoutMutate } = useMutation(logout, {
     onSuccess: () => {
       queryClient.invalidateQueries(["account", "me"]);
     },
   });
+
+  const decodedJwt = jwtDecode<JwtPayload>(meResponse?.jwt);
 
   const handleLogout = () => {
     logoutMutate();
@@ -40,9 +41,9 @@ const Navigation: React.FC<{}> = () => {
             Home
           </Link>
         </NextLink>
-        {user?.username ? (
+        {meResponse?.loggedIn ? (
           <React.Fragment>
-            <Typography>{user.username}</Typography>
+            <Typography>{decodedJwt.username}</Typography>
             <Link
               href="#"
               variant="button"

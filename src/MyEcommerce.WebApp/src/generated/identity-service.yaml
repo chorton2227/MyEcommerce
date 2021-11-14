@@ -63,13 +63,13 @@ paths:
           content:
             text/plain:
               schema:
-                "$ref": "#/components/schemas/UserReadDto"
+                "$ref": "#/components/schemas/MeResponseDto"
             application/json:
               schema:
-                "$ref": "#/components/schemas/UserReadDto"
+                "$ref": "#/components/schemas/MeResponseDto"
             text/json:
               schema:
-                "$ref": "#/components/schemas/UserReadDto"
+                "$ref": "#/components/schemas/MeResponseDto"
   "/api/Account/Logout":
     post:
       tags:
@@ -173,26 +173,19 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    UserReadDto:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-        username:
-          type: string
-          nullable: true
-      additionalProperties: false
     ResetPasswordResponseDto:
       type: object
       properties:
+        success:
+          type: boolean
+        jwt:
+          type: string
+          nullable: true
         fieldErrors:
           type: array
           items:
             "$ref": "#/components/schemas/FieldErrorDto"
           nullable: true
-        user:
-          "$ref": "#/components/schemas/UserReadDto"
       additionalProperties: false
     ForgotPasswordRequestDto:
       required:
@@ -202,6 +195,15 @@ components:
         email:
           type: string
           format: email
+      additionalProperties: false
+    MeResponseDto:
+      type: object
+      properties:
+        loggedIn:
+          type: boolean
+        jwt:
+          type: string
+          nullable: true
       additionalProperties: false
     LoginRequestDto:
       required:
@@ -217,13 +219,16 @@ components:
     LoginResponseDto:
       type: object
       properties:
+        success:
+          type: boolean
+        jwt:
+          type: string
+          nullable: true
         fieldErrors:
           type: array
           items:
             "$ref": "#/components/schemas/FieldErrorDto"
           nullable: true
-        user:
-          "$ref": "#/components/schemas/UserReadDto"
       additionalProperties: false
     RegisterRequestDto:
       required:
@@ -246,11 +251,14 @@ components:
     RegisterResponseDto:
       type: object
       properties:
+        success:
+          type: boolean
+        jwt:
+          type: string
+          nullable: true
         fieldErrors:
           type: array
           items:
             "$ref": "#/components/schemas/FieldErrorDto"
           nullable: true
-        user:
-          "$ref": "#/components/schemas/UserReadDto"
       additionalProperties: false

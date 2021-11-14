@@ -15,6 +15,7 @@ import { FieldErrorDto } from "../../generated/identity-service/dist";
 import { useMutation, useQueryClient } from "react-query";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/dist/client/router";
+import { MeResponseDto } from "../../generated/identity-service/dist";
 
 const Register = () => {
   const router = useRouter();
@@ -30,11 +31,14 @@ const Register = () => {
       setFieldErrors(null);
     },
     onSuccess: (data) => {
-      if (data.fieldErrors) {
-        setFieldErrors(data.fieldErrors);
-      } else {
-        queryClient.setQueryData(["account", "me"], data.user);
+      if (data.success) {
+        queryClient.setQueryData(["account", "me"], {
+          loggedIn: true,
+          jwt: data.jwt,
+        } as MeResponseDto);
         router.push("/");
+      } else {
+        setFieldErrors(data.fieldErrors || null);
       }
     },
     onError: (error, variables, context) => {

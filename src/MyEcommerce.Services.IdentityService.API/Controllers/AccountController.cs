@@ -2,13 +2,18 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Net;
     using System.Security.Claims;
+    using System.Text;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
+    using MyEcommerce.Services.IdentityService.API.Configurations;
     using MyEcommerce.Services.IdentityService.API.Dtos;
     using MyEcommerce.Services.IdentityService.API.Models;
     using MyEcommerce.Services.IdentityService.API.Services;
@@ -23,14 +28,18 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
 
         private readonly IEmailService _emailService;
 
+        private readonly IOptionsMonitor<JwtConfig> _jwtConfig;
+
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IEmailService emailService
+            IEmailService emailService,
+            IOptionsMonitor<JwtConfig> jwtConfig
         ) {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _jwtConfig = jwtConfig;
         }
 
         [HttpPost("ResetPassword", Name=nameof(ResetPassword))]
@@ -43,6 +52,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
             if (request.Password != request.ConfirmPassword)
             {
                 return new ResetPasswordResponseDto {
+                    Success = false,
                     FieldErrors = new List<FieldErrorDto> {
                         new FieldErrorDto {
                             Field = "Confirm password",
@@ -57,6 +67,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
             if (user == null)
             {
                 return new ResetPasswordResponseDto {
+                    Success = false,
                     FieldErrors = new List<FieldErrorDto> {
                         new FieldErrorDto {
                             Field = "Email",
@@ -71,6 +82,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
             if (!result.Succeeded)
             {
                 return new ResetPasswordResponseDto {
+                    Success = false,
                     FieldErrors = result.Errors.Select(error =>
                         new FieldErrorDto {
                             Field = error.Code,
@@ -86,10 +98,8 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
 
             // User logged in
             return new ResetPasswordResponseDto {
-                User = new UserReadDto {
-                    Id = user.Id,
-                    Username = user.UserName
-                }
+                Success = true,
+                Jwt = GenerateJwt(user)
             };
         }
 
@@ -110,22 +120,28 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
 
         [HttpGet("Me", Name=nameof(Me))]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public UserReadDto Me()
+        public async Task<MeResponseDto> Me()
         {
             if (User == null || !User.Identity.IsAuthenticated)
             {
-                return new UserReadDto();
+                return new MeResponseDto { LoggedIn = false };
             }
 
             var identity = User.Identity as ClaimsIdentity;
             if (identity == null)
             {
-                return new UserReadDto();
+                return new MeResponseDto { LoggedIn = false };
+            }
+            
+            var user = await _userManager.FindByNameAsync(identity.Name);
+            if (user == null)
+            {
+                return new MeResponseDto { LoggedIn = false };
             }
 
-            return new UserReadDto {
-                Id = identity.Claims.FirstOrDefault(x => x.Type == "sub")?.Value,
-                Username = identity.Name,
+            return new MeResponseDto {
+                LoggedIn = true,
+                Jwt = GenerateJwt(user)
             };
         }
 
@@ -148,6 +164,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
             if (user == null)
             {
                 return new LoginResponseDto {
+                    Success = false,
                     FieldErrors = new List<FieldErrorDto> {
                         new FieldErrorDto {
                             Field = "Username",
@@ -162,6 +179,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
             if (!isPasswordValid)
             {
                 return new LoginResponseDto {
+                    Success = false,
                     FieldErrors = new List<FieldErrorDto> {
                         new FieldErrorDto {
                             Field = "Password",
@@ -177,10 +195,8 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
 
             // User logged in
             return new LoginResponseDto {
-                User = new UserReadDto {
-                    Id = user.Id,
-                    Username = user.UserName
-                }
+                Success = true,
+                Jwt = GenerateJwt(user)
             };
         }
 
@@ -193,6 +209,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
             if (request.Password != request.ConfirmPassword)
             {
                 return new RegisterResponseDto {
+                    Success = false,
                     FieldErrors = new List<FieldErrorDto> {
                         new FieldErrorDto {
                             Field = "Confirm password",
@@ -225,6 +242,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
                 }
 
                 return new RegisterResponseDto {
+                    Success = false,
                     FieldErrors = fieldErrors
                 };
             }
@@ -235,10 +253,8 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
 
             // Registered user
             return new RegisterResponseDto {
-                User = new UserReadDto {
-                    Id = user.Id,
-                    Username = user.UserName
-                }
+                Success = true,
+                Jwt = GenerateJwt(user)
             };
         }
 
@@ -248,6 +264,31 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
                 ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7),
                 AllowRefresh = true,
             };
+        }
+
+        private string GenerateJwt(User user)
+        {
+            var secret = Encoding.ASCII.GetBytes(_jwtConfig.CurrentValue.Secret);
+            var signingCredentials =  new SigningCredentials(
+                new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256Signature
+            );
+
+            var securityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Expires = DateTime.UtcNow.AddYears(1),
+                SigningCredentials = signingCredentials,
+                Subject = new ClaimsIdentity(new [] {
+                    new Claim("Username", user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Iss, _jwtConfig.CurrentValue.Issuer),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                }),
+            };
+            
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var token = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            var jwt = jwtSecurityTokenHandler.WriteToken(token);
+            return jwt;
         }
     }
 }
