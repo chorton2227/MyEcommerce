@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "password",
+  "database": "myecommerce",
+  "entities": ["./dist/data/entities/*.js"],
+  "migrations": ["./dist/data/migrations/*.js"],
+  "migrationsTableName": "shopping_cart_migrations",
+  "cli": {
+    "migrationsDir": "./src/data/migrations"
+  }
+}
