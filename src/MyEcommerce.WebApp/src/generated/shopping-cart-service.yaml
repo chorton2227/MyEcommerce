@@ -1,0 +1,199 @@
+---
+components:
+  examples: {}
+  headers: {}
+  parameters: {}
+  requestBodies: {}
+  responses: {}
+  schemas:
+    ShoppingCart:
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        shoppingCartItems:
+          items:
+            "$ref": "#/components/schemas/ShoppingCartItem"
+          type: array
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - userId
+        - shoppingCartItems
+      type: object
+      additionalProperties: false
+    ShoppingCartItem:
+      properties:
+        id:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        productId:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        salePrice:
+          type: number
+          format: double
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        imageUrl:
+          type: string
+        shoppingCart:
+          "$ref": "#/components/schemas/ShoppingCart"
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - productId
+        - name
+        - price
+        - salePrice
+        - quantity
+        - imageUrl
+        - shoppingCart
+      type: object
+      additionalProperties: false
+    AddToCartModel:
+      properties:
+        productId:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        salePrice:
+          type: number
+          format: double
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        imageUrl:
+          type: string
+      required:
+        - productId
+        - name
+        - price
+        - salePrice
+        - quantity
+        - imageUrl
+      type: object
+      additionalProperties: false
+    UpdateItemInCartModel:
+      properties:
+        quantity:
+          type: number
+          format: double
+      required:
+        - quantity
+      type: object
+      additionalProperties: false
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+info:
+  title: myecommerce.services.shoppingcartservice.api
+  version: 1.0.0
+  license:
+    name: ISC
+  contact: {}
+openapi: 3.0.0
+paths:
+  "/shopping-carts/my-cart":
+    get:
+      operationId: GetCartForCurrentUser
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShoppingCart"
+      security:
+        - jwt: []
+      parameters: []
+    post:
+      operationId: AddToCartForCurrentUser
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShoppingCart"
+      security:
+        - jwt: []
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AddToCartModel"
+  "/shopping-carts/my-cart/{shoppingCartItemId}":
+    delete:
+      operationId: RemoveItemFromCartForCurrentUser
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShoppingCart"
+      security:
+        - jwt: []
+      parameters:
+        - in: path
+          name: shoppingCartItemId
+          required: true
+          schema:
+            format: double
+            type: number
+    put:
+      operationId: UpdateItemInCartForCurrentUser
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShoppingCart"
+      security:
+        - jwt: []
+      parameters:
+        - in: path
+          name: shoppingCartItemId
+          required: true
+          schema:
+            format: double
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateItemInCartModel"
+servers:
+  - url: "/"

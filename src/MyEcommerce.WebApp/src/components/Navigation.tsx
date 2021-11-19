@@ -4,6 +4,7 @@ import { AppBar, Link, Toolbar, Typography } from "@mui/material";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { logout, me } from "../apis/accountApi";
+import ShoppingCart from "./shopping-cart/ShoppingCart";
 
 const Navigation: React.FC<{}> = () => {
   const { data: meResponse } = useQuery(["account", "me"], () => me());
@@ -14,7 +15,9 @@ const Navigation: React.FC<{}> = () => {
     },
   });
 
-  const decodedJwt = jwtDecode<JwtPayload>(meResponse?.jwt);
+  const decodedJwt = meResponse?.loggedIn
+    ? jwtDecode<JwtPayload>(meResponse?.jwt as string)
+    : undefined;
 
   const handleLogout = () => {
     logoutMutate();
@@ -41,9 +44,9 @@ const Navigation: React.FC<{}> = () => {
             Home
           </Link>
         </NextLink>
-        {meResponse?.loggedIn ? (
+        {decodedJwt ? (
           <React.Fragment>
-            <Typography>{decodedJwt.username}</Typography>
+            <Typography>{decodedJwt.Username}</Typography>
             <Link
               href="#"
               variant="button"
@@ -78,6 +81,7 @@ const Navigation: React.FC<{}> = () => {
             </NextLink>
           </React.Fragment>
         )}
+        <ShoppingCart />
       </Toolbar>
     </AppBar>
   );

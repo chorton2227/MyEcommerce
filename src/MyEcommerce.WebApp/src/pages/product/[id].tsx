@@ -5,6 +5,7 @@ import { ProductReadDto } from "../../generated/product-service/dist/index";
 import Layout from "../../components/Layout";
 import Image from "next/image";
 import { getProductById } from "../../apis/productsApi";
+import AddToCart from "../../components/shopping-cart/AddToCart";
 
 const Product = () => {
   const router = useRouter();
@@ -55,6 +56,16 @@ const Product = () => {
               ${product.price}
             </Typography>
             <Typography variant="body1">{product.description}</Typography>
+            <AddToCart
+              model={{
+                imageUrl: product.imageUri as string,
+                name: product.name as string,
+                price: product.price as number,
+                productId: product.id as string,
+                salePrice: product.salePrice || null,
+                quantity: 1,
+              }}
+            />
           </Grid>
         </Grid>
       </Container>

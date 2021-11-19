@@ -34,7 +34,10 @@ export const logout = (): Promise<void> =>
     .then((response) => response.data);
 
 export const me = (): Promise<MeResponseDto> =>
-  accountApi.me({ withCredentials: true }).then((response) => response.data);
+  accountApi.me({ withCredentials: true }).then((response) => {
+    localStorage.setItem("jwt", response.data.jwt || "");
+    return response.data;
+  });
 
 export const register = (
   registerRequestDto?: RegisterRequestDto
