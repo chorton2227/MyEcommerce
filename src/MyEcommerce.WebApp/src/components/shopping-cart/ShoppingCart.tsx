@@ -57,7 +57,7 @@ const ShoppingCart: React.FC<{}> = (): ReactElement => {
           ) : (
             <React.Fragment>
               {cartResponse.shoppingCartItems.map((item) => (
-                <ShoppingCartItem item={item} />
+                <ShoppingCartItem key={item.id} item={item} />
               ))}
               <Typography variant="h5" alignContent="center">
                 Subtotal:{" "}

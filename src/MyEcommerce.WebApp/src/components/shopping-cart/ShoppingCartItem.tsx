@@ -4,6 +4,7 @@ import React, { ReactElement } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { removeFromCart } from "../../apis/shoppingCartApi";
 import { ShoppingCartItem } from "../../generated/shopping-cart-service/dist";
+import Image from "next/image";
 
 type ShoppingCartItemProps = {
   item: ShoppingCartItem;
@@ -31,7 +32,6 @@ const ShoppingCartItemComponent: React.FC<ShoppingCartItemProps> = ({
 
   return (
     <Grid
-      key={item.id}
       container
       spacing={2}
       direction="row"
@@ -39,11 +39,11 @@ const ShoppingCartItemComponent: React.FC<ShoppingCartItemProps> = ({
       alignItems="center"
     >
       <Grid item xs={3}>
-        <img
+        <Image
           src={item.imageUrl}
           alt={item.name}
           loading="lazy"
-          style={{ maxWidth: "100%" }}
+          layout="fill"
         />
       </Grid>
       <Grid item xs={6}>

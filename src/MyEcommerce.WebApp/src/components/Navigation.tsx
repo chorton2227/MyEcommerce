@@ -16,7 +16,7 @@ const Navigation: React.FC<{}> = () => {
   });
 
   const decodedJwt = meResponse?.loggedIn
-    ? jwtDecode<JwtPayload>(meResponse?.jwt as string)
+    ? (jwtDecode<JwtPayload>(meResponse?.jwt as string) as any)
     : undefined;
 
   const handleLogout = () => {

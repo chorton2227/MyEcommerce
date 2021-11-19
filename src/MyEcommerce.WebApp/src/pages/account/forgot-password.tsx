@@ -135,7 +135,7 @@ const Login = () => {
             </Grid>
             <Grid item xs={12} sm={6} sx={{ mx: "auto" }}>
               <NextLink href="/account/register">
-                <Link href="#">Don't have an account? Register</Link>
+                <Link href="#">Don&apos;t have an account? Register</Link>
               </NextLink>
             </Grid>
           </Grid>
