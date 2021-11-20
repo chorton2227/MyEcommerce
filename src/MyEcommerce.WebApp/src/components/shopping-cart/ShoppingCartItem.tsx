@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Button, Divider, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import React, { ReactElement } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { removeFromCart } from "../../apis/shoppingCartApi";
@@ -39,12 +39,15 @@ const ShoppingCartItemComponent: React.FC<ShoppingCartItemProps> = ({
       alignItems="center"
     >
       <Grid item xs={3}>
-        <Image
-          src={item.imageUrl}
-          alt={item.name}
-          loading="lazy"
-          layout="fill"
-        />
+        <Box sx={{ maxWidth: "100%" }}>
+          <Image
+            src={item.imageUrl}
+            alt={item.name}
+            loading="lazy"
+            width={113}
+            height={84}
+          />
+        </Box>
       </Grid>
       <Grid item xs={6}>
         <Typography>{item.name}</Typography>
