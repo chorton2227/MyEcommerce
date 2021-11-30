@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyEcommerce.Core\MyEcommerce.Core.csproj" />
+    <ProjectReference Include="..\MyEcommerce.Data.EntityFrameworkCore\MyEcommerce.Data.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\MyEcommerce.Services.OrderService.Domain\MyEcommerce.Services.OrderService.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
