@@ -53,12 +53,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://localhost:5001/api/Products/",
+									"raw": "https://localhost:6001/api/Products/",
 									"protocol": "https",
 									"host": [
 										"localhost"
 									],
-									"port": "5001",
+									"port": "6001",
 									"path": [
 										"api",
 										"Products",
@@ -90,11 +90,444 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Identity Service",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"chorton22275\",\r\n  \"email\": \"chorton2227+5@gmail.com\",\r\n  \"password\": \"Password1!\",\r\n  \"confirmPassword\": \"Password1!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6002/api/Account/Register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6002",
+									"path": [
+										"api",
+										"Account",
+										"Register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"chorton22275\",\r\n  \"password\": \"Password1!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6002/api/Account/Login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6002",
+									"path": [
+										"api",
+										"Account",
+										"Login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6002/api/Account/Logout",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6002",
+									"path": [
+										"api",
+										"Account",
+										"Logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Me",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"chorton\",\r\n  \"password\": \"Password1!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6002/api/Account/Me",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6002",
+									"path": [
+										"api",
+										"Account",
+										"Me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"chorton2227@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6002/api/Account/ForgotPassword",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6002",
+									"path": [
+										"api",
+										"Account",
+										"ForgotPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"chorton2227@gmail.com\",\r\n  \"password\": \"TestPassword1!\",\r\n  \"confirmPassword\": \"TestPassword1!\",\r\n  \"token\": \"CfDJ8PJpQ8BOpTxIo2SdoE3yZRnUvvf2RuhzL4OUMZP822UncNcqZoZnj6XfqW16z0QHR+/eKHVyhEC2lizxy9Vapjg2wcEeX+Pdmr4Rd84gn4am6U2d72QCqKLl94PTmVBw6bclUXlGuFhnaXAOclf8wpyB+UKjBajqL0po9yhsYMr7OHrmFUSHRUeFTlSSqsa5IJwsFTHmVB7Z+IQKXhimMWKqODfRaIzFgqo5+wWKfyj9\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6002/api/Account/ResetPassword",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6002",
+									"path": [
+										"api",
+										"Account",
+										"ResetPassword"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Shopping Cart Service",
+					"item": [
+						{
+							"name": "Get Shopping Cart for User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6004/shopping-carts/my-cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6004",
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add To Cart For Current User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": \"ProductId-e8fb1dc2-7482-47aa-aaf1-e7d924304007\",\r\n    \"name\": \"Awesome Frozen Cheese\",\r\n    \"price\": 44.99,\r\n    \"salePrice\": 30.12,\r\n    \"quantity\": 3,\r\n    \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6004/shopping-carts/my-cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6004",
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Item from Cart for Current User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6004/shopping-carts/my-cart/1/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6004",
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Item in Cart for Current User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6004/shopping-carts/my-cart/4/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6004",
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order Service",
+					"item": [
+						{
+							"name": "Get Orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3NSIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjYwMDMvIiwic3ViIjoiNTVjNzA3YjAtN2NkMS00NjVkLTlmNTItMzg4NDliMTU2NjkyIiwianRpIjoiMWNkOTZhMjUtM2RhMS00Y2VmLTljMWEtZTgyNjYwOTkwZDAzIiwibmJmIjoxNjM3Nzg5MjMwLCJleHAiOjE2NjkzMjUyMzAsImlhdCI6MTYzNzc4OTIzMH0.BFSIakBO9NUUJBgt27_xyNrM0rWfbF3ScJah7HUkN0s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6005/api/Orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6005",
+									"path": [
+										"api",
+										"Orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3NSIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjYwMDMvIiwic3ViIjoiNTVjNzA3YjAtN2NkMS00NjVkLTlmNTItMzg4NDliMTU2NjkyIiwianRpIjoiMWNkOTZhMjUtM2RhMS00Y2VmLTljMWEtZTgyNjYwOTkwZDAzIiwibmJmIjoxNjM3Nzg5MjMwLCJleHAiOjE2NjkzMjUyMzAsImlhdCI6MTYzNzc4OTIzMH0.BFSIakBO9NUUJBgt27_xyNrM0rWfbF3ScJah7HUkN0s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6005/api/Orders/OrderId-b491d291-8488-42b9-bc45-0135b4478439",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6005",
+									"path": [
+										"api",
+										"Orders",
+										"OrderId-b491d291-8488-42b9-bc45-0135b4478439"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3NSIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjYwMDMvIiwic3ViIjoiNTVjNzA3YjAtN2NkMS00NjVkLTlmNTItMzg4NDliMTU2NjkyIiwianRpIjoiMWNkOTZhMjUtM2RhMS00Y2VmLTljMWEtZTgyNjYwOTkwZDAzIiwibmJmIjoxNjM3Nzg5MjMwLCJleHAiOjE2NjkzMjUyMzAsImlhdCI6MTYzNzc4OTIzMH0.BFSIakBO9NUUJBgt27_xyNrM0rWfbF3ScJah7HUkN0s",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"chargeId\": \"ch_1234\",\r\n  \"billingAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"deliveryAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"orderItems\": [\r\n    {\r\n      \"productId\": \"ProductId-4dd26bc0-4a55-4556-a77f-e7545d568b7f\",\r\n      \"name\": \"Awesome Cotton Table\",\r\n      \"price\": 29.17,\r\n      \"quantity\": 2,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Cotton%20Table\"\r\n    },\r\n    {\r\n      \"productId\": \"ProductId-53eb60a1-bc5f-42cf-b026-933f8cb10021\",\r\n      \"name\": \"Awesome Frozen Cheese\",\r\n      \"price\": 44.99,\r\n      \"quantity\": 3,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6005/api/Orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6005",
+									"path": [
+										"api",
+										"Orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "K8S",
+			"name": "Production",
 			"item": [
 				{
 					"name": "Product Service",
@@ -141,11 +574,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://myecommerce.com/api/Products/",
+									"raw": "http://product-service.myecommerce.chorton.dev/api/Products/",
 									"protocol": "http",
 									"host": [
+										"product-service",
 										"myecommerce",
-										"com"
+										"chorton",
+										"dev"
 									],
 									"path": [
 										"api",
@@ -172,6 +607,465 @@
 										"api",
 										"Products",
 										"ProductId-00729add-5b85-4f1f-8c80-22991f6560ab"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Identity Service",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"chorton2227\",\r\n  \"email\": \"chorton2227@gmail.com\",\r\n  \"password\": \"Password1!\",\r\n  \"confirmPassword\": \"Password1!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://identity-service.myecommerce.chorton.dev/api/Account/Register",
+									"protocol": "https",
+									"host": [
+										"identity-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Account",
+										"Register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"chorton2227\",\r\n  \"password\": \"TestPassword1!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://identity-service.myecommerce.chorton.dev/api/Account/Login",
+									"protocol": "https",
+									"host": [
+										"identity-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Account",
+										"Login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://identity-service.myecommerce.chorton.dev/api/Account/Logout",
+									"protocol": "https",
+									"host": [
+										"identity-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Account",
+										"Logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Me",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"chorton\",\r\n  \"password\": \"Password1!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://identity-service.myecommerce.chorton.dev/api/Account/Me",
+									"protocol": "https",
+									"host": [
+										"identity-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Account",
+										"Me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"chorton2227@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://identity-service.myecommerce.chorton.dev/api/Account/ForgotPassword",
+									"protocol": "https",
+									"host": [
+										"identity-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Account",
+										"ForgotPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"chorton2227@gmail.com\",\r\n  \"password\": \"TestPassword1!\",\r\n  \"confirmPassword\": \"TestPassword1!\",\r\n  \"token\": \"CfDJ8OnYSykyvpVHufG1X3cvSkOKwqq2a67orLBGuopunaEmfIi1NN61QIfO6jGVfpmeKENtB49spDjWIIUANRGOsqrExYCaPbwxpVeKX7g0iU2sizc10ZA/vDk7ZpH/Qz+NtYRSfdzydGKDv8sqAa2SXp7mh+Sv6Tmwc1OQSRDlWANTIPkX2ZDO0Btz0Ak/nJXnhCXsXVHxphdfcaElK5w6jhSjY/Q3RlveUtLhoYmrPtGM\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://identity-service.myecommerce.chorton.dev/api/Account/ResetPassword",
+									"protocol": "https",
+									"host": [
+										"identity-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Account",
+										"ResetPassword"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Shopping Cart Service",
+					"item": [
+						{
+							"name": "Get Shopping Cart for User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://shopping-cart-service.myecommerce.chorton.dev/shopping-carts/my-cart/",
+									"protocol": "https",
+									"host": [
+										"shopping-cart-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add To Cart For Current User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": \"ProductId-e8fb1dc2-7482-47aa-aaf1-e7d924304007\",\r\n    \"name\": \"Awesome Frozen Cheese\",\r\n    \"price\": 44.99,\r\n    \"salePrice\": 30.12,\r\n    \"quantity\": 3,\r\n    \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://shopping-cart-service.myecommerce.chorton.dev/shopping-carts/my-cart/",
+									"protocol": "https",
+									"host": [
+										"shopping-cart-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Item from Cart for Current User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://shopping-cart-service.myecommerce.chorton.dev/shopping-carts/my-cart/1/",
+									"protocol": "https",
+									"host": [
+										"shopping-cart-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Item in Cart for Current User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://shopping-cart-service.myecommerce.chorton.dev/shopping-carts/my-cart/4/",
+									"protocol": "https",
+									"host": [
+										"shopping-cart-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order Service",
+					"item": [
+						{
+							"name": "Get Orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6Ijg3NGRmYWUyLTI2Y2YtNGI2OC04YmU0LTQ3OWNkMWQ3YWRmOSIsIm5iZiI6MTYzNzgwNTg0NiwiZXhwIjoxNjY5MzQxODQ2LCJpYXQiOjE2Mzc4MDU4NDZ9.NtnYeSp1w9Uw_Tlwi3LR_5UcOGIiqbKsykFiLv31OWQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://order-service.myecommerce.chorton.dev/api/Orders",
+									"protocol": "https",
+									"host": [
+										"order-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6Ijg3NGRmYWUyLTI2Y2YtNGI2OC04YmU0LTQ3OWNkMWQ3YWRmOSIsIm5iZiI6MTYzNzgwNTg0NiwiZXhwIjoxNjY5MzQxODQ2LCJpYXQiOjE2Mzc4MDU4NDZ9.NtnYeSp1w9Uw_Tlwi3LR_5UcOGIiqbKsykFiLv31OWQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://order-service.myecommerce.chorton.dev/api/Orders/OrderId-eb6fef40-d19f-4823-8ede-b28420051ab4",
+									"protocol": "https",
+									"host": [
+										"order-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Orders",
+										"OrderId-eb6fef40-d19f-4823-8ede-b28420051ab4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6Ijg3NGRmYWUyLTI2Y2YtNGI2OC04YmU0LTQ3OWNkMWQ3YWRmOSIsIm5iZiI6MTYzNzgwNTg0NiwiZXhwIjoxNjY5MzQxODQ2LCJpYXQiOjE2Mzc4MDU4NDZ9.NtnYeSp1w9Uw_Tlwi3LR_5UcOGIiqbKsykFiLv31OWQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"chargeId\": \"ch_1234\",\r\n  \"billingAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"deliveryAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"orderItems\": [\r\n    {\r\n      \"productId\": \"ProductId-99fe4b8b-9b52-4506-bd2a-61a86e6d8a17\",\r\n      \"name\": \"Awesome Cotton Table\",\r\n      \"price\": 29.17,\r\n      \"quantity\": 2,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Cotton%20Table\"\r\n    },\r\n    {\r\n      \"productId\": \"ProductId-b611f42f-a493-49c5-812c-c9fa0b6c2518\",\r\n      \"name\": \"Awesome Frozen Cheese\",\r\n      \"price\": 44.99,\r\n      \"quantity\": 3,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://order-service.myecommerce.chorton.dev/api/Orders",
+									"protocol": "https",
+									"host": [
+										"order-service",
+										"myecommerce",
+										"chorton",
+										"dev"
+									],
+									"path": [
+										"api",
+										"Orders"
 									]
 								}
 							},
