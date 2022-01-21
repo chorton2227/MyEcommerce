@@ -52,8 +52,7 @@ const ShoppingCartItemComponent: React.FC<ShoppingCartItemProps> = ({
       <Grid item xs={6}>
         <Typography>{item.name}</Typography>
         <Typography>
-          {item.quantity} x{" "}
-          <strong>${item.salePrice ? item.salePrice : item.price}</strong>
+          {item.quantity} x <strong>${item.unitPrice}</strong>
         </Typography>
       </Grid>
       <Grid item xs={3}>

@@ -1,4 +1,5 @@
 import React from "react";
+import NextLink from "next/link";
 import { ReactElement } from "react";
 import { useQuery } from "react-query";
 import { getCart } from "../../apis/shoppingCartApi";
@@ -7,11 +8,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
   Divider,
   Drawer,
-  Grid,
   IconButton,
   Stack,
   Typography,
@@ -60,18 +58,14 @@ const ShoppingCart: React.FC<{}> = (): ReactElement => {
                 <ShoppingCartItem key={item.id} item={item} />
               ))}
               <Typography variant="h5" alignContent="center">
-                Subtotal:{" "}
-                <strong>
-                  $
-                  {cartResponse.shoppingCartItems.reduce((acc, item) => {
-                    return acc + item.quantity * (item.salePrice || item.price);
-                  }, 0)}
-                </strong>
+                Subtotal: <strong>${cartResponse.subtotal}</strong>
               </Typography>
               <Divider sx={{ py: 1, mb: 2 }} />
-              <Button variant="contained" size="large" fullWidth>
-                Checkout
-              </Button>
+              <NextLink href="/checkout">
+                <Button variant="contained" size="large" fullWidth>
+                  Checkout
+                </Button>
+              </NextLink>
             </React.Fragment>
           )}
         </Box>

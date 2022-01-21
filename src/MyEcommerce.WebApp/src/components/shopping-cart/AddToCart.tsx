@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import React, { ReactElement } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { addToCart } from "../../apis/shoppingCartApi";
@@ -35,7 +35,6 @@ const AddToCart: React.FC<AddToCartProps> = ({ model }): ReactElement => {
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-      {!isDisabled ? null : "Login to add items to your cart"}
       <TextField
         name="quantity"
         label="Quantity"
@@ -43,6 +42,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ model }): ReactElement => {
         defaultValue={1}
         disabled={isDisabled}
       />
+      <br />
       <LoadingButton
         type="submit"
         variant="contained"
@@ -52,6 +52,12 @@ const AddToCart: React.FC<AddToCartProps> = ({ model }): ReactElement => {
       >
         Add to Cart
       </LoadingButton>
+      {!isDisabled ? null : (
+        <React.Fragment>
+          <br />
+          <Typography>Login to add items to your cart</Typography>
+        </React.Fragment>
+      )}
     </Box>
   );
 };

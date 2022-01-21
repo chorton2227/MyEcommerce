@@ -52,6 +52,17 @@ export const addToCart = async (
     .then((response) => response.data);
 };
 
+export const removeCart = async (): Promise<void> => {
+  const isAuth = setAuthorization();
+  if (!isAuth) {
+    return Promise.reject(null);
+  }
+
+  return shoppingCartApi
+    .removeCartForCurrentUser()
+    .then((response) => response.data);
+};
+
 export const removeFromCart = async (
   shoppingCartItemId: number
 ): Promise<ShoppingCart> => {

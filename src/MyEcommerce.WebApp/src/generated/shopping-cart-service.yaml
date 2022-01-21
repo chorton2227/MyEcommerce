@@ -18,6 +18,9 @@ components:
           format: date-time
         userId:
           type: string
+        subtotal:
+          type: number
+          format: double
         shoppingCartItems:
           items:
             "$ref": "#/components/schemas/ShoppingCartItem"
@@ -27,6 +30,7 @@ components:
         - createdAt
         - updatedAt
         - userId
+        - subtotal
         - shoppingCartItems
       type: object
       additionalProperties: false
@@ -52,6 +56,12 @@ components:
           type: number
           format: double
           nullable: true
+        unitPrice:
+          type: number
+          format: double
+        total:
+          type: number
+          format: double
         quantity:
           type: number
           format: double
@@ -67,6 +77,8 @@ components:
         - name
         - price
         - salePrice
+        - unitPrice
+        - total
         - quantity
         - imageUrl
         - shoppingCart
@@ -152,6 +164,14 @@ paths:
           application/json:
             schema:
               "$ref": "#/components/schemas/AddToCartModel"
+    delete:
+      operationId: RemoveCartForCurrentUser
+      responses:
+        "204":
+          description: No content
+      security:
+        - jwt: []
+      parameters: []
   "/shopping-carts/my-cart/{shoppingCartItemId}":
     delete:
       operationId: RemoveItemFromCartForCurrentUser

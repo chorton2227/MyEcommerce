@@ -40,7 +40,7 @@ const Product = () => {
     <Layout>
       <Container className="product-page" sx={{ my: 4 }}>
         <Grid container spacing={4}>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Image
               src={product.imageUri!}
               alt="Product image"
@@ -48,7 +48,7 @@ const Product = () => {
               height={480}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Typography className="product-title" variant="h4" component="h1">
               {product.name}
             </Typography>

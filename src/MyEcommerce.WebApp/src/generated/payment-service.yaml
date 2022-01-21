@@ -1,0 +1,51 @@
+---
+openapi: 3.0.1
+info:
+  title: MyEcommerce.Services.PaymentService.API
+  version: v1
+paths:
+  "/api/Payments":
+    post:
+      tags:
+      - Payments
+      operationId: CreateAsync
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/StripePaymentRequest"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/StripePaymentRequest"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/StripePaymentRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/StripePaymentResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/StripePaymentResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/StripePaymentResponse"
+components:
+  schemas:
+    StripePaymentRequest:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    StripePaymentResponse:
+      type: object
+      properties:
+        clientSecret:
+          type: string
+          nullable: true
+      additionalProperties: false

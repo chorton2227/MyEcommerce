@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import NextLink from "next/link";
-import { AppBar, Link, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Link,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { logout, me } from "../apis/accountApi";
 import ShoppingCart from "./shopping-cart/ShoppingCart";
+import { KeyboardArrowDown, Logout, Receipt } from "@mui/icons-material";
+import { useRouter } from "next/dist/client/router";
 
 const Navigation: React.FC<{}> = () => {
+  const [accountMenuAnchorEl, setAccountMenuAnchorEl] =
+    useState<null | HTMLElement>(null);
+  const isAccountMenuOpen = Boolean(accountMenuAnchorEl);
+
+  const router = useRouter();
+
   const { data: meResponse } = useQuery(["account", "me"], () => me());
   const queryClient = useQueryClient();
   const { mutate: logoutMutate } = useMutation(logout, {
@@ -23,6 +40,14 @@ const Navigation: React.FC<{}> = () => {
     logoutMutate();
   };
 
+  const handleAccountMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAccountMenuAnchorEl(event.currentTarget);
+  };
+
+  const handleAccountMenuClose = () => {
+    setAccountMenuAnchorEl(null);
+  };
+
   return (
     <AppBar
       position="static"
@@ -32,30 +57,47 @@ const Navigation: React.FC<{}> = () => {
     >
       <Toolbar>
         <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          MyEcommerce
+          <NextLink href="/">
+            <Link href="#" color="text.primary" sx={{ textDecoration: "none" }}>
+              MyEcommerce
+            </Link>
+          </NextLink>
         </Typography>
-        <NextLink href="/">
-          <Link
-            href="#"
-            variant="button"
-            color="text.primary"
-            sx={{ my: 1, mx: 1.5 }}
-          >
-            Home
-          </Link>
-        </NextLink>
         {decodedJwt ? (
           <React.Fragment>
-            <Typography>{decodedJwt.Username}</Typography>
-            <Link
-              href="#"
-              variant="button"
-              color="text.primary"
-              sx={{ my: 1, mx: 1.5 }}
-              onClick={handleLogout}
+            <Button
+              variant="text"
+              onClick={handleAccountMenuOpen}
+              aria-controls={isAccountMenuOpen ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={isAccountMenuOpen ? "true" : "false"}
+              endIcon={<KeyboardArrowDown />}
+              sx={{ color: "text.primary" }}
             >
-              Logout
-            </Link>
+              {decodedJwt.Username}
+            </Button>
+            <Menu
+              id="account-menu"
+              anchorEl={accountMenuAnchorEl}
+              open={isAccountMenuOpen}
+              onClose={handleAccountMenuClose}
+              onClick={handleAccountMenuClose}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem onClick={() => router.push("/account/orders")}>
+                <ListItemIcon>
+                  <Receipt fontSize="small" />
+                </ListItemIcon>
+                View Orders
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -64,7 +106,7 @@ const Navigation: React.FC<{}> = () => {
                 href="#"
                 variant="button"
                 color="text.primary"
-                sx={{ my: 1, mx: 1.5 }}
+                sx={{ my: 1, mx: 1.5, textDecoration: "none" }}
               >
                 Register
               </Link>
@@ -74,7 +116,7 @@ const Navigation: React.FC<{}> = () => {
                 href="#"
                 variant="button"
                 color="text.primary"
-                sx={{ my: 1, mx: 1.5 }}
+                sx={{ my: 1, mx: 1.5, textDecoration: "none" }}
               >
                 Login
               </Link>
