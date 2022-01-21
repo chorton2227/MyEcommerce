@@ -1,4 +1,6 @@
+import roundTo from "../../utils/roundTo";
 import {
+  AfterLoad,
   BaseEntity,
   Column,
   CreateDateColumn,
@@ -32,6 +34,10 @@ export class ShoppingCartItem extends BaseEntity {
   @Column("decimal", { precision: 12, scale: 2, nullable: true })
   salePrice: number | null;
 
+  unitPrice: number;
+
+  total: number;
+
   @Column()
   quantity!: number;
 
@@ -40,7 +46,14 @@ export class ShoppingCartItem extends BaseEntity {
 
   @ManyToOne(
     () => ShoppingCart,
-    (shoppingCart) => shoppingCart.shoppingCartItems
+    (shoppingCart) => shoppingCart.shoppingCartItems,
+    { onDelete: "CASCADE" }
   )
   shoppingCart: ShoppingCart;
+
+  @AfterLoad()
+  setComputed() {
+    this.unitPrice = this.salePrice ? this.salePrice : this.price;
+    this.total = roundTo(this.unitPrice * this.quantity, 2);
+  }
 }

@@ -51,6 +51,23 @@ export class ShoppingCartsController extends Controller {
     return shoppingCart;
   }
 
+  @Delete()
+  public async removeCartForCurrentUser(
+    @Request() request: any
+  ): Promise<void> {
+    const userId = request.user.sub;
+    const shoppingCart = await ShoppingCart.findOne({
+      userId,
+    });
+
+    if (!shoppingCart) {
+      return;
+    }
+
+    await ShoppingCart.delete({ id: shoppingCart.id });
+    return;
+  }
+
   @Delete("{shoppingCartItemId}")
   public async removeItemFromCartForCurrentUser(
     @Request() request: any,
