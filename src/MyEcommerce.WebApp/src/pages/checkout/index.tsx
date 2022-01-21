@@ -82,7 +82,7 @@ const CheckoutPage: NextPage = () => {
     createPaymentMutation.mutate({
       amount: shoppingCart!.subtotal * 100,
     });
-  }, [isCartLoading]);
+  }, [isCartLoading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isCartLoading || !clientSecret) {
     return <>Loading</>;

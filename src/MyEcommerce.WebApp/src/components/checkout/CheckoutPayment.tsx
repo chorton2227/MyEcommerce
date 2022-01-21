@@ -1,4 +1,4 @@
-import { Alert, Box, Typography } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 import {
   PaymentElement,
   useElements,
@@ -66,5 +66,7 @@ const CheckoutPayment = forwardRef<
     </React.Fragment>
   );
 });
+
+CheckoutPayment.displayName = "CheckoutPayment";
 
 export default CheckoutPayment;
