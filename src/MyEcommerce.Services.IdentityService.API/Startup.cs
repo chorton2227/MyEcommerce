@@ -2,8 +2,10 @@ namespace MyEcommerce.Services.IdentityService.API
 {
     using System;
     using System.Reflection;
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -12,6 +14,7 @@ namespace MyEcommerce.Services.IdentityService.API
     using Microsoft.OpenApi.Models;
     using MyEcommerce.Services.IdentityService.API.Configurations;
     using MyEcommerce.Services.IdentityService.API.Data;
+    using MyEcommerce.Services.IdentityService.API.Extensions;
     using MyEcommerce.Services.IdentityService.API.Models;
     using MyEcommerce.Services.IdentityService.API.Services;
     using SendGrid.Extensions.DependencyInjection;
@@ -31,6 +34,7 @@ namespace MyEcommerce.Services.IdentityService.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.ConfigureNonBreakingSameSiteCookies();
             AddIdentityServices(services);
             AddAutoMapper(services);
             AddDataLayer(services);
@@ -44,6 +48,11 @@ namespace MyEcommerce.Services.IdentityService.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCookiePolicy(new CookiePolicyOptions {
+                MinimumSameSitePolicy = SameSiteMode.Lax,
+                Secure = CookieSecurePolicy.Always
+            });
+
             app.UseCors("CorsPolicy");
             
             if (env.IsDevelopment())
@@ -79,8 +88,6 @@ namespace MyEcommerce.Services.IdentityService.API
                 .AddDefaultTokenProviders();
 
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
-
-            services.AddAuthentication();
             
             services
                 .AddIdentityServer(options => {

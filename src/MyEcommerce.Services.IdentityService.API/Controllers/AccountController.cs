@@ -279,6 +279,7 @@ namespace MyEcommerce.Services.IdentityService.API.Controllers
                 SigningCredentials = signingCredentials,
                 Subject = new ClaimsIdentity(new [] {
                     new Claim("Username", user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Iss, _jwtConfig.CurrentValue.Issuer),
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
