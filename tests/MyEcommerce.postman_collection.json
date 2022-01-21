@@ -131,7 +131,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"username\": \"chorton22275\",\r\n  \"password\": \"Password1!\"\r\n}",
+									"raw": "{\r\n  \"username\": \"test1\",\r\n  \"password\": \"Password1!\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -281,12 +281,43 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6InRlc3QxIiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiNGQ4ZjY3Ni01ZWYzLTQwODktYmUxOS1lNWQ0NWRlZjI5NTIiLCJqdGkiOiI3OWQ1MTIzNC01Yzg5LTQ4ODUtOWY1Zi1lNTFmMmNmZDkwZTUiLCJuYmYiOjE2NDI2MTM3MjAsImV4cCI6MTY3NDE0OTcyMCwiaWF0IjoxNjQyNjEzNzIwfQ.UNnzWgZ7_E7SIzGGtp2GwPvOfjt_bbZu7rLJgZNPV48",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6004/shopping-carts/my-cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6004",
+									"path": [
+										"shopping-carts",
+										"my-cart",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Shopping Cart for User Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6InRlc3QxIiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiNGQ4ZjY3Ni01ZWYzLTQwODktYmUxOS1lNWQ0NWRlZjI5NTIiLCJqdGkiOiI3OWQ1MTIzNC01Yzg5LTQ4ODUtOWY1Zi1lNTFmMmNmZDkwZTUiLCJuYmYiOjE2NDI2MTM3MjAsImV4cCI6MTY3NDE0OTcyMCwiaWF0IjoxNjQyNjEzNzIwfQ.UNnzWgZ7_E7SIzGGtp2GwPvOfjt_bbZu7rLJgZNPV48",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
 								"header": [],
 								"url": {
 									"raw": "http://localhost:6004/shopping-carts/my-cart/",
@@ -312,7 +343,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiYjUxZWM4ZS1mYzNmLTQ3MGYtYWUxNS1lZjY2ZTdkYzVjMmYiLCJqdGkiOiIzYWUwYmM1MS1iMDMwLTQxYTMtOGVkYi02ZGVkMjg3NWM0NjgiLCJuYmYiOjE2MzY5MDcwNDAsImV4cCI6MTY2ODQ0MzA0MCwiaWF0IjoxNjM2OTA3MDQwfQ.tI9oUmLnlFWkf0B1dObzESdRNmYFgMyyhBJ3m_pu6oA",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6InRlc3QxIiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiNGQ4ZjY3Ni01ZWYzLTQwODktYmUxOS1lNWQ0NWRlZjI5NTIiLCJqdGkiOiI3OWQ1MTIzNC01Yzg5LTQ4ODUtOWY1Zi1lNTFmMmNmZDkwZTUiLCJuYmYiOjE2NDI2MTM3MjAsImV4cCI6MTY3NDE0OTcyMCwiaWF0IjoxNjQyNjEzNzIwfQ.UNnzWgZ7_E7SIzGGtp2GwPvOfjt_bbZu7rLJgZNPV48",
 											"type": "string"
 										}
 									]
@@ -430,7 +461,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3NSIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjYwMDMvIiwic3ViIjoiNTVjNzA3YjAtN2NkMS00NjVkLTlmNTItMzg4NDliMTU2NjkyIiwianRpIjoiMWNkOTZhMjUtM2RhMS00Y2VmLTljMWEtZTgyNjYwOTkwZDAzIiwibmJmIjoxNjM3Nzg5MjMwLCJleHAiOjE2NjkzMjUyMzAsImlhdCI6MTYzNzc4OTIzMH0.BFSIakBO9NUUJBgt27_xyNrM0rWfbF3ScJah7HUkN0s",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6InRlc3QxIiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiNGQ4ZjY3Ni01ZWYzLTQwODktYmUxOS1lNWQ0NWRlZjI5NTIiLCJqdGkiOiI3OWQ1MTIzNC01Yzg5LTQ4ODUtOWY1Zi1lNTFmMmNmZDkwZTUiLCJuYmYiOjE2NDI2MTM3MjAsImV4cCI6MTY3NDE0OTcyMCwiaWF0IjoxNjQyNjEzNzIwfQ.UNnzWgZ7_E7SIzGGtp2GwPvOfjt_bbZu7rLJgZNPV48",
 											"type": "string"
 										}
 									]
@@ -468,7 +499,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:6005/api/Orders/OrderId-b491d291-8488-42b9-bc45-0135b4478439",
+									"raw": "http://localhost:6005/api/Orders/OrderId-5aeb7c4c-3204-4412-b873-07e72db39ce0",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -477,7 +508,7 @@
 									"path": [
 										"api",
 										"Orders",
-										"OrderId-b491d291-8488-42b9-bc45-0135b4478439"
+										"OrderId-5aeb7c4c-3204-4412-b873-07e72db39ce0"
 									]
 								}
 							},
@@ -491,7 +522,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3NSIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjYwMDMvIiwic3ViIjoiNTVjNzA3YjAtN2NkMS00NjVkLTlmNTItMzg4NDliMTU2NjkyIiwianRpIjoiMWNkOTZhMjUtM2RhMS00Y2VmLTljMWEtZTgyNjYwOTkwZDAzIiwibmJmIjoxNjM3Nzg5MjMwLCJleHAiOjE2NjkzMjUyMzAsImlhdCI6MTYzNzc4OTIzMH0.BFSIakBO9NUUJBgt27_xyNrM0rWfbF3ScJah7HUkN0s",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6InRlc3QxIiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NjAwMy8iLCJzdWIiOiJiNGQ4ZjY3Ni01ZWYzLTQwODktYmUxOS1lNWQ0NWRlZjI5NTIiLCJqdGkiOiJlMGFkNjBlNS0wZDg3LTRhMmItYTRhZC1iMjNkMWY0NWNkNmMiLCJuYmYiOjE2NDI3MDY1NzIsImV4cCI6MTY3NDI0MjU3MiwiaWF0IjoxNjQyNzA2NTcyfQ.hL_eUxEyWAmLiGaCsT6AjV2174W5SFTEWVH9NIMSxsk",
 											"type": "string"
 										}
 									]
@@ -500,7 +531,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"chargeId\": \"ch_1234\",\r\n  \"billingAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"deliveryAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"orderItems\": [\r\n    {\r\n      \"productId\": \"ProductId-4dd26bc0-4a55-4556-a77f-e7545d568b7f\",\r\n      \"name\": \"Awesome Cotton Table\",\r\n      \"price\": 29.17,\r\n      \"quantity\": 2,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Cotton%20Table\"\r\n    },\r\n    {\r\n      \"productId\": \"ProductId-53eb60a1-bc5f-42cf-b026-933f8cb10021\",\r\n      \"name\": \"Awesome Frozen Cheese\",\r\n      \"price\": 44.99,\r\n      \"quantity\": 3,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n    }\r\n  ]\r\n}",
+									"raw": "{\r\n  \"chargeId\": \"ch_1234\",\r\n  \"deliveryAddress\": {\r\n    \"email\": \"john.smith@example.com\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Smith\",\r\n    \"street1\": \"12345 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"orderItems\": [\r\n    {\r\n      \"productId\": \"ProductId-4dd26bc0-4a55-4556-a77f-e7545d568b7f\",\r\n      \"name\": \"Awesome Cotton Table\",\r\n      \"price\": 29.17,\r\n      \"quantity\": 1,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Cotton%20Table\"\r\n    },\r\n    {\r\n      \"productId\": \"ProductId-53eb60a1-bc5f-42cf-b026-933f8cb10021\",\r\n      \"name\": \"Awesome Frozen Cheese\",\r\n      \"price\": 44.99,\r\n      \"quantity\": 1,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -517,6 +548,41 @@
 									"path": [
 										"api",
 										"Orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Payment Service",
+					"item": [
+						{
+							"name": "Create Payment Intent",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Amount\": 1299\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6006/api/payments/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6006",
+									"path": [
+										"api",
+										"payments",
+										""
 									]
 								}
 							},
@@ -973,7 +1039,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6Ijg3NGRmYWUyLTI2Y2YtNGI2OC04YmU0LTQ3OWNkMWQ3YWRmOSIsIm5iZiI6MTYzNzgwNTg0NiwiZXhwIjoxNjY5MzQxODQ2LCJpYXQiOjE2Mzc4MDU4NDZ9.NtnYeSp1w9Uw_Tlwi3LR_5UcOGIiqbKsykFiLv31OWQ",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6IjE5Mzc4M2Q0LTQwODYtNGI5ZC1iZTkyLWZhMmM1MmY2NDg5OCIsIm5iZiI6MTYzODMwNjk2MiwiZXhwIjoxNjY5ODQyOTYyLCJpYXQiOjE2MzgzMDY5NjJ9.CmGb3PZjUkmZqEEir4H_Nx1Nz678Kk4opRWTMWSjFbc",
 											"type": "string"
 										}
 									]
@@ -1005,7 +1071,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6Ijg3NGRmYWUyLTI2Y2YtNGI2OC04YmU0LTQ3OWNkMWQ3YWRmOSIsIm5iZiI6MTYzNzgwNTg0NiwiZXhwIjoxNjY5MzQxODQ2LCJpYXQiOjE2Mzc4MDU4NDZ9.NtnYeSp1w9Uw_Tlwi3LR_5UcOGIiqbKsykFiLv31OWQ",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6IjE5Mzc4M2Q0LTQwODYtNGI5ZC1iZTkyLWZhMmM1MmY2NDg5OCIsIm5iZiI6MTYzODMwNjk2MiwiZXhwIjoxNjY5ODQyOTYyLCJpYXQiOjE2MzgzMDY5NjJ9.CmGb3PZjUkmZqEEir4H_Nx1Nz678Kk4opRWTMWSjFbc",
 											"type": "string"
 										}
 									]
@@ -1013,7 +1079,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://order-service.myecommerce.chorton.dev/api/Orders/OrderId-eb6fef40-d19f-4823-8ede-b28420051ab4",
+									"raw": "https://order-service.myecommerce.chorton.dev/api/Orders/OrderId-44d8ceeb-dca4-40ed-8c9c-ab8f73c1f1aa",
 									"protocol": "https",
 									"host": [
 										"order-service",
@@ -1024,7 +1090,7 @@
 									"path": [
 										"api",
 										"Orders",
-										"OrderId-eb6fef40-d19f-4823-8ede-b28420051ab4"
+										"OrderId-44d8ceeb-dca4-40ed-8c9c-ab8f73c1f1aa"
 									]
 								}
 							},
@@ -1038,7 +1104,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6Ijg3NGRmYWUyLTI2Y2YtNGI2OC04YmU0LTQ3OWNkMWQ3YWRmOSIsIm5iZiI6MTYzNzgwNTg0NiwiZXhwIjoxNjY5MzQxODQ2LCJpYXQiOjE2Mzc4MDU4NDZ9.NtnYeSp1w9Uw_Tlwi3LR_5UcOGIiqbKsykFiLv31OWQ",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImNob3J0b24yMjI3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1zZXJ2aWNlLm15ZWNvbW1lcmNlLmNob3J0b24uZGV2LyIsInN1YiI6IjRmZTY0YmViLTgyODEtNDM5MS1iNjEwLTEzYjc5OWI0ZDRiNSIsImp0aSI6IjE5Mzc4M2Q0LTQwODYtNGI5ZC1iZTkyLWZhMmM1MmY2NDg5OCIsIm5iZiI6MTYzODMwNjk2MiwiZXhwIjoxNjY5ODQyOTYyLCJpYXQiOjE2MzgzMDY5NjJ9.CmGb3PZjUkmZqEEir4H_Nx1Nz678Kk4opRWTMWSjFbc",
 											"type": "string"
 										}
 									]
@@ -1047,7 +1113,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"chargeId\": \"ch_1234\",\r\n  \"billingAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"deliveryAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"orderItems\": [\r\n    {\r\n      \"productId\": \"ProductId-99fe4b8b-9b52-4506-bd2a-61a86e6d8a17\",\r\n      \"name\": \"Awesome Cotton Table\",\r\n      \"price\": 29.17,\r\n      \"quantity\": 2,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Cotton%20Table\"\r\n    },\r\n    {\r\n      \"productId\": \"ProductId-b611f42f-a493-49c5-812c-c9fa0b6c2518\",\r\n      \"name\": \"Awesome Frozen Cheese\",\r\n      \"price\": 44.99,\r\n      \"quantity\": 3,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n    }\r\n  ]\r\n}",
+									"raw": "{\r\n  \"chargeId\": \"ch_1234\",\r\n  \"deliveryAddress\": {\r\n    \"street1\": \"1234 Main St\",\r\n    \"street2\": \"APT 1\",\r\n    \"city\": \"Mount Airy\",\r\n    \"state\": \"NC\",\r\n    \"country\": \"USA\",\r\n    \"zipCode\": \"27030\"\r\n  },\r\n  \"orderItems\": [\r\n    {\r\n      \"productId\": \"ProductId-99fe4b8b-9b52-4506-bd2a-61a86e6d8a17\",\r\n      \"name\": \"Awesome Cotton Table\",\r\n      \"price\": 29.17,\r\n      \"quantity\": 2,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Cotton%20Table\"\r\n    },\r\n    {\r\n      \"productId\": \"ProductId-b611f42f-a493-49c5-812c-c9fa0b6c2518\",\r\n      \"name\": \"Awesome Frozen Cheese\",\r\n      \"price\": 44.99,\r\n      \"quantity\": 3,\r\n      \"imageUrl\": \"https://via.placeholder.com/640x480/cccccc/9c9c9c.png?text=Awesome%20Frozen%20Cheese\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
