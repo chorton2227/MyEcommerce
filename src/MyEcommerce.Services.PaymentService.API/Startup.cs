@@ -60,6 +60,11 @@ namespace MyEcommerce.Services.PaymentService.API
             
             app.UseCors("CorsPolicy");
 
+            if (env.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseRouting();
 
             app.UseAuthorization();
