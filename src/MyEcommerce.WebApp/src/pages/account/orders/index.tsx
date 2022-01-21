@@ -148,37 +148,41 @@ const AccountOrdersPage: NextPage = () => {
         <Typography component="h1" variant="h4" align="center" sx={{ my: 3 }}>
           Orders
         </Typography>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>&nbsp;</TableCell>
-                <TableCell>Id</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Total</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {paginatedOrders.orders.map((order) => (
-                <OrderRow key={order.id} order={order} />
-              ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[10, 20, 50]}
-                  count={paginatedOrders.totalOrders!}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handlePageChange}
-                  onRowsPerPageChange={handleRowsPerPageChange}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+        {!paginatedOrders.orders ? (
+          <Typography align="center">No orders found for account.</Typography>
+        ) : (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>&nbsp;</TableCell>
+                  <TableCell>Id</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Total</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {paginatedOrders.orders.map((order) => (
+                  <OrderRow key={order.id} order={order} />
+                ))}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 20, 50]}
+                    count={paginatedOrders.totalOrders!}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handlePageChange}
+                    onRowsPerPageChange={handleRowsPerPageChange}
+                    ActionsComponent={TablePaginationActions}
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        )}
       </Container>
     </Layout>
   );
