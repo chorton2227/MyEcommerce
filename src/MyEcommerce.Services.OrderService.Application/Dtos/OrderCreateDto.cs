@@ -7,9 +7,10 @@ namespace MyEcommerce.Services.OrderService.Application.Dtos
     {
         [Required]
         public string ChargeId { get; set; }
-
+        
         [Required]
-        public AddressDto BillingAddress { get; set; } 
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         public AddressDto DeliveryAddress { get; set; }

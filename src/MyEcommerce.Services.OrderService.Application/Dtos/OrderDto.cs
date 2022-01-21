@@ -11,13 +11,13 @@ namespace MyEcommerce.Services.OrderService.Application.Dtos
 
         public OrderStatusDto Status { get; set; }
 
-        public AddressDto BillingAddress { get; set; } 
-
         public AddressDto DeliveryAddress { get; set; }
 
         public DateTimeOffset OrderDate { get; set; }
 
         public string ChargeId { get; set; }
+
+        public string Email { get; set; }
 
         public decimal Total { get; set; }
 

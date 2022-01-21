@@ -1,5 +1,6 @@
 namespace MyEcommerce.Services.OrderService.Application.CommandHandlers
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
@@ -25,9 +26,9 @@ namespace MyEcommerce.Services.OrderService.Application.CommandHandlers
         {
             var order = new Order(
                 request.UserId,
-                _mapper.Map<Address>(request.OrderCreateDto.BillingAddress),
                 _mapper.Map<Address>(request.OrderCreateDto.DeliveryAddress),
-                request.OrderCreateDto.ChargeId
+                request.OrderCreateDto.ChargeId,
+                request.OrderCreateDto.Email
             );
 
             foreach (var orderItemDto in request.OrderCreateDto.OrderItems)
@@ -42,7 +43,7 @@ namespace MyEcommerce.Services.OrderService.Application.CommandHandlers
             }
             
             _orderRepository.Create(order);
-            await _orderRepository.SaveChangesAsync();
+            var result = await _orderRepository.SaveChangesAsync();
             return _mapper.Map<OrderDto>(order);
         }
     }

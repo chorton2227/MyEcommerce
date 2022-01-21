@@ -33,29 +33,29 @@ namespace MyEcommerce.Services.OrderService.Data.EntityTypeConfigurations
                 .IsRequired();
             
             builder
+                .Property(o => o.Email)
+                .IsRequired();
+            
+            builder
                 .Property(o => o.Total)
                 .IsRequired();
             
             builder
-                .OwnsOne(o => o.BillingAddress, a => {
-                    a.Property(aa => aa.Street1)
-                        .IsRequired();
-                        
-                    a.Property(aa => aa.City)
-                        .IsRequired();
-
-                    a.Property(aa => aa.State)
-                        .IsRequired();
-
-                    a.Property(aa => aa.Country)
-                        .IsRequired();
-
-                    a.Property(aa => aa.ZipCode)
-                        .IsRequired();
-                });
+                .Property(o => o.Status)
+                .HasConversion(
+                    status => status.Id,
+                    statusId => OrderStatus.Parse<OrderStatus>(statusId)
+                )
+                .IsRequired();
             
             builder
                 .OwnsOne(o => o.DeliveryAddress, a => {
+                    a.Property(aa => aa.FirstName)
+                        .IsRequired();
+
+                    a.Property(aa => aa.LastName)
+                        .IsRequired();
+
                     a.Property(aa => aa.Street1)
                         .IsRequired();
                         
@@ -71,11 +71,6 @@ namespace MyEcommerce.Services.OrderService.Data.EntityTypeConfigurations
                     a.Property(aa => aa.ZipCode)
                         .IsRequired();
                 });
-            
-            builder
-                .HasOne(o => o.Status)
-                .WithMany()
-                .HasForeignKey("_orderStatusId");
             
             var orderItemNav = builder.Metadata.FindNavigation(nameof(Order.OrderItems));
             orderItemNav.SetPropertyAccessMode(PropertyAccessMode.Field);

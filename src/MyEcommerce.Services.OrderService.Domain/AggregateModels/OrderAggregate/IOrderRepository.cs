@@ -5,7 +5,7 @@ namespace MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregat
 
     public interface IOrderRepository : IRepository<Order>
     {
-        void Create(Order order);
+        Order Create(Order order);
 
         PaginatedOrders GetAll(OrderOptions options);
 

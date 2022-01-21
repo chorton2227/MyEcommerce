@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyEcommerce.Services.OrderService.Data.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20211130192224_UpdateForeignKeyForOrderStatusId")]
-    partial class UpdateForeignKeyForOrderStatusId
+    [Migration("20220119183722_RemoveBillingAddress")]
+    partial class RemoveBillingAddress
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,9 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
                     b.Property<DateTimeOffset>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("Total")
                         .HasColumnType("numeric");
 
@@ -40,12 +43,7 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("_orderStatusId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("_orderStatusId");
 
                     b.ToTable("Orders", "OrderService");
                 });
@@ -106,48 +104,6 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
 
             modelBuilder.Entity("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.Order", b =>
                 {
-                    b.HasOne("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.OrderStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("_orderStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsOne("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.Address", "BillingAddress", b1 =>
-                        {
-                            b1.Property<string>("OrderId")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Country")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("State")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Street1")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Street2")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("ZipCode")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
                     b.OwnsOne("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.Address", "DeliveryAddress", b1 =>
                         {
                             b1.Property<string>("OrderId")
@@ -184,13 +140,8 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
                                 .HasForeignKey("OrderId");
                         });
 
-                    b.Navigation("BillingAddress")
-                        .IsRequired();
-
                     b.Navigation("DeliveryAddress")
                         .IsRequired();
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.OrderItem", b =>

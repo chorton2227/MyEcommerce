@@ -11,16 +11,11 @@ namespace MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregat
     {
         private readonly List<OrderItem> _orderItems;
 
-        private readonly int _orderStatusId;
-
         [Required]
         public string UserId { get; private set; }
 
         [Required]
         public OrderStatus Status { get; private set; }
-
-        [Required]
-        public Address BillingAddress { get; private set; } 
 
         [Required]
         public Address DeliveryAddress { get; private set; }
@@ -30,6 +25,9 @@ namespace MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregat
 
         [Required]
         public string ChargeId { get; private set; }
+
+        [Required]
+        public string Email { get; private set; }
 
         [Required]
         public decimal Total
@@ -53,17 +51,17 @@ namespace MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregat
 
         public Order(
             string userId,
-            Address billingAddress,
             Address deliveryAddress,
-            string chargeId
+            string chargeId,
+            string email
         ) : this() {
 			Id = new OrderId();
             UserId = userId;
-            BillingAddress = billingAddress;
             DeliveryAddress = deliveryAddress;
             ChargeId = chargeId;
+            Email = email;
             OrderDate = DateTimeOffset.UtcNow;
-            _orderStatusId = OrderStatus.Submitted.Id;
+            Status = OrderStatus.Submitted;
         }
 
         public void AddOrderItem(OrderItem item)

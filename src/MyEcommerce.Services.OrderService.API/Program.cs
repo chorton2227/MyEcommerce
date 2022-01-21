@@ -3,11 +3,8 @@ using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MyEcommerce.Data.EntityFrameworkCore;
 using MyEcommerce.Services.OrderService.API;
-using MyEcommerce.Services.OrderService.Data;
 using Serilog;
 
 var configuration = GetConfiguration();
@@ -17,14 +14,6 @@ try
 {
     Log.Information("[{AppName}] Building web host...", MyEcommerce.Services.OrderService.API.Program.AppName);
     var host = BuildWebHost(configuration, args);
-
-    using (var scope = host.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        var env = services.GetRequiredService<IWebHostEnvironment>();
-        Log.Information("[{AppName}] Migrating database...", MyEcommerce.Services.OrderService.API.Program.AppName);
-        host = host.MigrateDbContext<OrderContext>();
-    }
 
     Log.Information("[{AppName}] Starting web host...", MyEcommerce.Services.OrderService.API.Program.AppName);
     host.Run();

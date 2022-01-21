@@ -1,5 +1,6 @@
 namespace MyEcommerce.Services.OrderService.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
@@ -18,9 +19,9 @@ namespace MyEcommerce.Services.OrderService.Data
             _context = context;
         }
 
-        public void Create(Order order)
+        public Order Create(Order order)
         {
-            _context.Orders.Add(order);
+            return _context.Orders.Add(order).Entity;
         }
 
         public PaginatedOrders GetAll(OrderOptions options)
@@ -35,19 +36,16 @@ namespace MyEcommerce.Services.OrderService.Data
             var query = _context
                 .Orders
                 .Include(o => o.OrderItems)
-                .Include(o => o.Status)
-                .Include(o => o.BillingAddress)
-                .Include(o => o.DeliveryAddress)
                 .AsQueryable();
             
             // Filter
             query = query.Where(o => o.UserId == options.UserId);
-
-            // Sort
-            query = query.OrderByDescending(o => o.OrderDate);
             
             // Get count
             var totalOrders = query.Count();
+
+            // Sort
+            var orderedQuery = query.OrderByDescending(o => o.OrderDate);
 
             // Paginate
             var skip = options.PageIndex * options.PageLimit;
@@ -58,15 +56,19 @@ namespace MyEcommerce.Services.OrderService.Data
             }
 
             // Return query results
+            var orders = orderedQuery
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+            Console.WriteLine("Order Count: " + orders.Count().ToString());
+            Console.WriteLine("Skip: " + skip.ToString());
+            Console.WriteLine("Take: " + take.ToString());
             return new PaginatedOrders
             {
                 PageIndex = options.PageIndex,
                 PageLimit = options.PageLimit,
                 TotalOrders = totalOrders,
-                Orders = query
-                    .Skip(skip)
-                    .Take(take)
-                    .ToList()
+                Orders = orders
             };
         }
 
@@ -74,6 +76,7 @@ namespace MyEcommerce.Services.OrderService.Data
         {
             return _context
                 .Orders
+                .Include(o => o.OrderItems)
                 .FirstOrDefault(o =>
                     o.Id == orderId && o.UserId == userId
                 );

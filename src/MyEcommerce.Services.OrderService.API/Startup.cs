@@ -1,7 +1,6 @@
 namespace MyEcommerce.Services.OrderService.API
 {
     using System;
-    using System.Reflection;
     using MediatR;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -44,11 +43,7 @@ namespace MyEcommerce.Services.OrderService.API
 
             // DbContext
             services.AddDbContext<OrderContext>(opts => {
-                var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-                opts.UseNpgsql(Configuration["ConnectionString"], opts => {
-                    opts.MigrationsAssembly(migrationsAssembly);
-                    opts.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(10), null);
-                });
+                opts.UseInMemoryDatabase("InMem");
             });
 
             // MVC

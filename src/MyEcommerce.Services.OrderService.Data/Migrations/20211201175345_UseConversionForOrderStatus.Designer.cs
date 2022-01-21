@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyEcommerce.Services.OrderService.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyEcommerce.Services.OrderService.Data.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    partial class OrderContextModelSnapshot : ModelSnapshot
+    [Migration("20211201175345_UseConversionForOrderStatus")]
+    partial class UseConversionForOrderStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,10 +27,6 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ChargeId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -106,7 +104,7 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
 
             modelBuilder.Entity("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.Order", b =>
                 {
-                    b.OwnsOne("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.Address", "DeliveryAddress", b1 =>
+                    b.OwnsOne("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.Address", "BillingAddress", b1 =>
                         {
                             b1.Property<string>("OrderId")
                                 .HasColumnType("text");
@@ -116,14 +114,6 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
                                 .HasColumnType("text");
 
                             b1.Property<string>("Country")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("FirstName")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("LastName")
                                 .IsRequired()
                                 .HasColumnType("text");
 
@@ -149,6 +139,45 @@ namespace MyEcommerce.Services.OrderService.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");
                         });
+
+                    b.OwnsOne("MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate.Address", "DeliveryAddress", b1 =>
+                        {
+                            b1.Property<string>("OrderId")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("State")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street1")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street2")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("ZipCode")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.Navigation("BillingAddress")
+                        .IsRequired();
 
                     b.Navigation("DeliveryAddress")
                         .IsRequired();
