@@ -1,8 +1,9 @@
 import roundTo from "../../utils/roundTo";
 import {
+  AfterInsert,
   AfterLoad,
+  AfterUpdate,
   BaseEntity,
-  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -34,8 +35,7 @@ export class ShoppingCart extends BaseEntity {
   )
   shoppingCartItems: ShoppingCartItem[];
 
-  @AfterLoad()
-  OnAfterLoad() {
+  public calculate(): void {
     if (this.shoppingCartItems) {
       this.subtotal = roundTo(
         this.shoppingCartItems.reduce<number>(
@@ -44,14 +44,16 @@ export class ShoppingCart extends BaseEntity {
         ),
         2
       );
-    }
-  }
-
-  @BeforeInsert()
-  OnBeforeInsert() {
-    if (!this.shoppingCartItems) {
+    } else {
       this.shoppingCartItems = [];
       this.subtotal = 0;
     }
+  }
+
+  @AfterLoad()
+  @AfterInsert()
+  @AfterUpdate()
+  Recalculate() {
+    this.calculate();
   }
 }

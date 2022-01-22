@@ -39,13 +39,13 @@ export class ShoppingCartsController extends Controller {
     );
     if (existingItem) {
       existingItem.quantity += model.quantity;
-      existingItem.save();
+      await existingItem.save();
     } else {
       const shoppingCartItem = await ShoppingCartItem.create({
         ...model,
       }).save();
       shoppingCart.shoppingCartItems.push(shoppingCartItem);
-      shoppingCart.save();
+      await shoppingCart.save();
     }
 
     return shoppingCart;
@@ -74,14 +74,16 @@ export class ShoppingCartsController extends Controller {
     @Path() shoppingCartItemId: number
   ): Promise<ShoppingCart> {
     const shoppingCart = await this.getOrCreateCartForCurrentUser(request);
-    const itemToRemove = shoppingCart.shoppingCartItems?.find(
+    const itemIndex = shoppingCart.shoppingCartItems?.findIndex(
       (value) => value.id === shoppingCartItemId
     );
-    if (!itemToRemove) {
+    if (itemIndex === -1) {
       throw new NotFoundError("Shopping cart item does not exist");
     }
 
-    await ShoppingCartItem.delete({ id: shoppingCartItemId });
+    await ShoppingCartItem.delete({
+      id: shoppingCart.shoppingCartItems[itemIndex].id,
+    });
     return this.getOrCreateCartForCurrentUser(request);
   }
 
@@ -100,8 +102,9 @@ export class ShoppingCartsController extends Controller {
     }
 
     itemToUpdate.quantity = model.quantity;
-    itemToUpdate.save();
+    await itemToUpdate.save();
 
+    shoppingCart.calculate();
     return shoppingCart;
   }
 

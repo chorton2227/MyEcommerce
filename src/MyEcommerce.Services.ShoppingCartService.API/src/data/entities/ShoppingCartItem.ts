@@ -1,8 +1,9 @@
 import roundTo from "../../utils/roundTo";
 import {
+  AfterInsert,
   AfterLoad,
+  AfterUpdate,
   BaseEntity,
-  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -53,7 +54,8 @@ export class ShoppingCartItem extends BaseEntity {
   shoppingCart: ShoppingCart;
 
   @AfterLoad()
-  @BeforeInsert()
+  @AfterInsert()
+  @AfterUpdate()
   OnAfterLoadAndBeforeInsert() {
     this.unitPrice = this.salePrice ? this.salePrice : this.price;
     this.total = roundTo(this.unitPrice * this.quantity, 2);
