@@ -81,7 +81,7 @@ namespace MyEcommerce.Services.ProductService.API
             {
                 services.AddDbContext<ProductContext>(opts =>
                 {
-                    opts.UseNpgsql("Host=dokku-postgres-myecommerce;Database=myecommerce;Username=postgres;Password=***REMOVED***");
+                    opts.UseNpgsql("Host=dokku-postgres-myecommerce;Database=myecommerce;Username=postgres;Password=7d30c782249cad79797a3f38c16461a5");
                 });
             }
             else
