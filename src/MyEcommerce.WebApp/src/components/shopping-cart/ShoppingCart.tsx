@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NextLink from "next/link";
 import { ReactElement } from "react";
 import { useQuery } from "react-query";
@@ -15,10 +15,17 @@ import {
   Typography,
 } from "@mui/material";
 import ShoppingCartItem from "./ShoppingCartItem";
+import { addEvent } from "../../utils/events";
 
 const ShoppingCart: React.FC<{}> = (): ReactElement => {
   const [toggle, setToggle] = React.useState(false);
   const { data: cartResponse } = useQuery(["cart"], () => getCart());
+
+  useEffect(() => {
+    addEvent("shoppingCart:open", () => {
+      setToggle(true);
+    });
+  }, []);
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {

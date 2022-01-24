@@ -4,6 +4,7 @@ import React, { ReactElement } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { addToCart } from "../../apis/shoppingCartApi";
 import { AddToCartModel } from "../../generated/shopping-cart-service/dist";
+import { triggerEvent } from "../../utils/events";
 import isAuth from "../../utils/isAuth";
 
 type AddToCartProps = {
@@ -17,6 +18,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ model }): ReactElement => {
     // onMutate: () => {},
     onSuccess: (data) => {
       queryClient.setQueryData(["cart"], data);
+      triggerEvent("shoppingCart:open");
     },
     // onError: (error, variables, context) => {},
   });
