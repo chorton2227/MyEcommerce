@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { removeFromCart } from "../../apis/shoppingCartApi";
 import { ShoppingCartItem } from "../../generated/shopping-cart-service/dist";
 import Image from "next/image";
+import ProductPrice from "../products/ProductPrice";
 
 type ShoppingCartItemProps = {
   item: ShoppingCartItem;
@@ -52,7 +53,8 @@ const ShoppingCartItemComponent: React.FC<ShoppingCartItemProps> = ({
       <Grid item xs={6}>
         <Typography>{item.name}</Typography>
         <Typography>
-          {item.quantity} x <strong>${item.unitPrice}</strong>
+          {item.quantity}&nbsp;x&nbsp;
+          <ProductPrice price={item.price} salePrice={item.salePrice} />
         </Typography>
       </Grid>
       <Grid item xs={3}>

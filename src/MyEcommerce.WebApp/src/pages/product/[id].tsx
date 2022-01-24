@@ -6,6 +6,7 @@ import Layout from "../../components/Layout";
 import Image from "next/image";
 import { getProductById } from "../../apis/productsApi";
 import AddToCart from "../../components/shopping-cart/AddToCart";
+import ProductPrice from "../../components/products/ProductPrice";
 
 const Product = () => {
   const router = useRouter();
@@ -52,8 +53,11 @@ const Product = () => {
             <Typography className="product-title" variant="h4" component="h1">
               {product.name}
             </Typography>
-            <Typography className="product-price" variant="h5">
-              ${product.price}
+            <Typography variant="h5">
+              <ProductPrice
+                price={product.price}
+                salePrice={product.salePrice}
+              />
             </Typography>
             <Typography variant="body1">{product.description}</Typography>
             <AddToCart

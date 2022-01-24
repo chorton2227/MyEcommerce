@@ -8,8 +8,9 @@ import {
   Skeleton,
 } from "@mui/material";
 import React, { ReactElement } from "react";
-import { ProductReadDto } from "../../generated/product-service/dist/index";
+import { ProductReadDto } from "../../generated/product-service/dist";
 import NextLink from "next/link";
+import ProductPrice from "./ProductPrice";
 
 interface ProductItemProps {
   isLoading: boolean;
@@ -66,17 +67,12 @@ const ProductItem: React.FC<ProductItemProps> = ({
                 </Typography>
               )}
               <Typography>{linkToProduct(product.id, product.name)}</Typography>
-              {product.onSale ? (
-                <Typography>
-                  <span className="product-price-old">${product.price}</span>
-                  &nbsp;
-                  <span className="product-price">${product.salePrice}</span>
-                </Typography>
-              ) : (
-                <Typography className="product-price">
-                  ${product.price}
-                </Typography>
-              )}
+              <Typography>
+                <ProductPrice
+                  price={product.price}
+                  salePrice={product.salePrice}
+                />
+              </Typography>
             </CardContent>
           )}
         </Card>
