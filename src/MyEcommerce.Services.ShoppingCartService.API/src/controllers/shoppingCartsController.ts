@@ -48,6 +48,8 @@ export class ShoppingCartsController extends Controller {
       await shoppingCart.save();
     }
 
+    shoppingCart.calculate();
+
     return shoppingCart;
   }
 
