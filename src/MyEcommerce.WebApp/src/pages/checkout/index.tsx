@@ -80,7 +80,7 @@ const CheckoutPage: NextPage = () => {
     }
 
     createPaymentMutation.mutate({
-      amount: shoppingCart!.subtotal * 100,
+      amount: Math.ceil(shoppingCart!.subtotal * 100),
     });
   }, [isCartLoading]); // eslint-disable-line react-hooks/exhaustive-deps
 
