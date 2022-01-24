@@ -33,7 +33,7 @@ const CheckoutReviewOrder: React.FC<CheckoutReviewOrderProps> = ({
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            ${shoppingCart?.subtotal}
+            ${shoppingCart?.subtotal.toFixed(2)}
           </Typography>
         </ListItem>
       </List>

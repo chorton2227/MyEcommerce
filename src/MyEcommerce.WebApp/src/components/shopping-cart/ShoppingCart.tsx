@@ -58,7 +58,7 @@ const ShoppingCart: React.FC<{}> = (): ReactElement => {
                 <ShoppingCartItem key={item.id} item={item} />
               ))}
               <Typography variant="h5" alignContent="center">
-                Subtotal: <strong>${cartResponse.subtotal}</strong>
+                Subtotal: <strong>${cartResponse.subtotal.toFixed(2)}</strong>
               </Typography>
               <Divider sx={{ py: 1, mb: 2 }} />
               <NextLink href="/checkout">

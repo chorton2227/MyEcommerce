@@ -193,7 +193,7 @@ const CheckoutPage: NextPage = () => {
                 variant="contained"
                 loading={isSubmitting}
               >
-                Pay ${shoppingCart?.subtotal}
+                Pay ${shoppingCart?.subtotal.toFixed(2)}
               </LoadingButton>
             </React.Fragment>
           )}
