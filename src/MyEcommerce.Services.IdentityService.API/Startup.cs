@@ -173,11 +173,7 @@ namespace MyEcommerce.Services.IdentityService.API
 
         private void AddSendGrid(IServiceCollection services)
         {
-            services.AddSendGrid(options => {
-                options.ApiKey = Configuration["SendGrid:ApiKey"];
-            });
-
-            services.AddTransient<IEmailService, SendGridEmailService>();
+            services.AddTransient<IEmailService, SendInBlueEmailService>();
         }
     }
 }
