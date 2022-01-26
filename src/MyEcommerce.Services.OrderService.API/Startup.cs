@@ -12,6 +12,7 @@ namespace MyEcommerce.Services.OrderService.API
     using Microsoft.OpenApi.Models;
     using MyEcommerce.Services.OrderService.API.Helpers;
     using MyEcommerce.Services.OrderService.Application;
+    using MyEcommerce.Services.OrderService.Application.Services;
     using MyEcommerce.Services.OrderService.Data;
     using MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate;
 
@@ -40,6 +41,12 @@ namespace MyEcommerce.Services.OrderService.API
             // Data and Application Layers
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderApplication, OrderApplication>();
+            services.AddScoped<IEmailService, SendInBlueEmailService>();
+            services.AddSingleton<SendInBlueEmailServiceConfig>(
+                new SendInBlueEmailServiceConfig {
+                    ApiKey = Configuration["SendInBlue:ApiKey"],
+                    OrderReceiptTemplateId = long.Parse(Configuration["SendInBlue:OrderReceiptTemplateId"])
+                });
 
             // DbContext
             services.AddDbContext<OrderContext>(opts => {

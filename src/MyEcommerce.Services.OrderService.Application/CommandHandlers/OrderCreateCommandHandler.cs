@@ -8,6 +8,7 @@ namespace MyEcommerce.Services.OrderService.Application.CommandHandlers
     using MyEcommerce.Core.Domain.Common;
     using MyEcommerce.Services.OrderService.Application.Commands;
     using MyEcommerce.Services.OrderService.Application.Dtos;
+    using MyEcommerce.Services.OrderService.Application.Services;
     using MyEcommerce.Services.OrderService.Domain.AggregateModels.OrderAggregate;
 
     public class OrderCreateCommandHandler : ICommandHandler<OrderCreateCommand, OrderDto>
@@ -16,10 +17,13 @@ namespace MyEcommerce.Services.OrderService.Application.CommandHandlers
         
         private readonly IMapper _mapper;
 
-        public OrderCreateCommandHandler(IOrderRepository orderRepository, IMapper mapper)
+        private readonly IEmailService _emailService;
+
+        public OrderCreateCommandHandler(IOrderRepository orderRepository, IMapper mapper, IEmailService emailService)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         public async Task<OrderDto> Handle(OrderCreateCommand request, CancellationToken cancellationToken)
@@ -44,6 +48,7 @@ namespace MyEcommerce.Services.OrderService.Application.CommandHandlers
             
             _orderRepository.Create(order);
             var result = await _orderRepository.SaveChangesAsync();
+            await _emailService.SendOrderReceipt(order);
             return _mapper.Map<OrderDto>(order);
         }
     }
